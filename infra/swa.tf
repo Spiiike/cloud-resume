@@ -5,4 +5,9 @@ resource "azurerm_static_web_app" "this" {
   sku_tier            = "Free"
   sku_size            = "Free"
   tags                = var.tags
+
+  app_settings = {
+    COSMOS_CONNECTION = local.cosmos_table_connection_string
+    TABLE_NAME        = azurerm_cosmosdb_table.counter.name
+  }
 }

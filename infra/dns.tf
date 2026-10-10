@@ -45,6 +45,6 @@ resource "azurerm_dns_cname_record" "www" {
 
 resource "azurerm_static_web_app_custom_domain" "www" {
   static_web_app_id = azurerm_static_web_app.this.id
-  domain_name = "${azurerm_dns_cname_record.www.name}.${azurerm_dns_cname_record.www.zone_name}"
-  validation_type = "cname-delegation"
+  domain_name       = "${azurerm_dns_cname_record.www.name}.${azurerm_dns_cname_record.www.zone_name}"
+  validation_type   = "cname-delegation"
 }
