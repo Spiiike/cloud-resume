@@ -468,7 +468,8 @@ html{scroll-behavior:auto}
 .avatar::after{display:none}
 .sk-group:hover,.proj:hover,.chip:hover,.btn:hover,.mini:hover{transform:none}
 .hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
-.primary-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.primary-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.primary-actions .btn{justify-content:center;text-align:center}
 .section-nav{display:flex;gap:10px 20px;flex-wrap:wrap;margin-top:20px;font-size:13px}
 .section-nav a{text-decoration:underline;text-underline-offset:4px}
 .section-intro{margin:-8px 0 22px;color:var(--dim);font-size:14px}
@@ -482,7 +483,7 @@ html{scroll-behavior:auto}
 .visitor-note b{font-weight:400!important;color:var(--dim)!important}
 .hero-role{font-size:14px;line-height:1.5}
 @media(max-width:860px){.hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-stats .stat:last-child{grid-column:auto}}
-@media(max-width:480px){.primary-actions .btn{width:100%;justify-content:center}.stat{padding:8px}.stat span{font-size:9px;letter-spacing:0}}
+@media(max-width:480px){.primary-actions{grid-template-columns:1fr}.primary-actions .btn{width:100%;justify-content:center}.stat{padding:8px}.stat span{font-size:9px;letter-spacing:0}}
 @media print{.primary-actions,.section-nav,.section-intro,.visitor-note{display:none!important}.hero-stats{grid-template-columns:repeat(3,1fr)}.hero-stats .stat:last-child{display:block!important}.scope-details{break-inside:auto}.scope-details summary{display:none}.scope-details>ul{display:grid!important}}
 </style>
 <meta name="author" content="Antalon Jackson Jr"><noscript><style>.reveal{opacity:1;transform:none}.hero-role,.chips,.cli-wrap{display:none}</style></noscript>
@@ -532,7 +533,7 @@ html{scroll-behavior:auto}
 <p class="hero-role" aria-live="off"><span id="roleType">Systems Administrator · Identity · Endpoint · Cloud</span></p>
 
 <p class="hero-bio">Nine years in enterprise IT. I own Intune and Jamf administration for approximately 750 endpoints, lead identity integrations across 40+ applications, and automate the work that keeps a hybrid environment running.</p>
-<div class="primary-actions" role="group" aria-label="Portfolio and contact"><a class="btn" href="https://projects.glasscliff.online" target="_blank" rel="noopener">View live projects ↗</a><a class="btn ghost" href="#experience">View experience ↓</a><a class="btn ghost" href="mailto:antalonj@gmail.com">Contact me</a></div>
+<div class="primary-actions" role="group" aria-label="Portfolio, blog and contact"><a class="btn" href="https://projects.glasscliff.online" target="_blank" rel="noopener">View live projects ↗</a><a class="btn ghost" href="#experience">View experience ↓</a><a class="btn ghost" href="mailto:antalonj@gmail.com">Contact me</a><a class="btn ghost" href="https://glasscliff.online/blog.html">Read my blog ↗</a></div>
 
       <nav class="section-nav" aria-label="Resume sections"><a href="#projects">Projects</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#education">Certifications</a><a href="#contact">Contact</a></nav><div class="hero-stats">
   <div class="stat"><b data-count="9" data-suffix="+">9+</b><span>years in IT</span></div>
@@ -1630,7 +1631,6 @@ function boot(){
     if(e.key === 'Escape' && !typing) closeTerm();
   });
 
-  /* click the prompt area to focus */
   $('.cli').addEventListener('click', function(e){
     if(e.target.closest('button') || e.target.closest('input')) return;
     cliInput.focus();
