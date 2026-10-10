@@ -243,7 +243,7 @@ h1.hero-name .l2{text-shadow:5px 5px 0 var(--orange);color:var(--fg)}
 .win-bar b{color:var(--fg);font-weight:700}
 .win-bar .sp{flex:1}
 .avatar{position:relative;background:var(--bg);border-bottom:var(--bw) solid var(--edge);overflow:hidden;display:grid;place-items:center;padding:14px}
-.avatar svg{width:100%;max-width:230px;height:auto;image-rendering:pixelated}
+.avatar .profile-portrait{display:block;width:100%;max-width:280px;height:auto;aspect-ratio:1;object-fit:contain}
 .avatar::after{content:'';position:absolute;left:0;right:0;height:34%;top:-40%;
   background:repeating-linear-gradient(to bottom,rgba(0,255,102,.10) 0 2px,transparent 2px 5px);
   animation:sweep 5.5s linear infinite;pointer-events:none}
@@ -870,8 +870,9 @@ html{scroll-behavior:auto}
 <div class="cert"><span class="yr">2025</span><span>Microsoft 365 Certified: <b>Endpoint Administrator Associate</b> (MD-102)</span></div>
 <div class="cert"><span class="yr">2025</span><span>Red Hat Certified <b>System Administrator</b> (RHCSA, EX200)</span></div>
 <div class="cert"><span class="yr">2025</span><span><b>ITIL Foundation</b></span></div>
-<div class="cert"><span class="yr">2026</span><span>AWS Certified <b>AI Practitioner</b> (AIF-C01)</span></div></div>
-<div class="cert"><span class="yr">2026</span><span>AWS Certified <b>Cloud Practitioner</b> (CLF-C02)</span></div></div>
+<div class="cert"><span class="yr">2026</span><span>AWS Certified <b>AI Practitioner</b> (AIF-C01)</span></div>
+<div class="cert"><span class="yr">2026</span><span>AWS Certified <b>Cloud Practitioner</b> (CLF-C02)</span></div>
+        </div><!-- certifications card -->
 
         </div>
     </div>
@@ -953,47 +954,8 @@ function esc(s){ return String(s).replace(/[&<>"']/g,function(c){ return {'&':'&
 function wait(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
 
 /* ============================================================
-   1 · pixel avatar (generated SVG — no external assets)
+   1 · profile portrait (embedded PNG in the profile card)
    ============================================================ */
-var PX = [
-  "................",
-  ".....GGGGGG.....",
-  "....GGGGGGGG....",
-  "...GGGGGGGGGG...",
-  "...GGSSSSSSGG...",
-  "..OGGSSSSSSGGO..",
-  "..OOSSDSSDSSOO..",
-  "..OOSSSSSSSSOO..",
-  "...GGSSDDSSGG...",
-  "....GGSSSSGG....",
-  ".....GGGGGG.....",
-  "...DDDDDDDDDD...",
-  "..DDGGGGGGGGDD..",
-  ".DDGGGGGGGGGGDD.",
-  ".DGGGGGOOGGGGGD.",
-  "DGGGGGGGGGGGGGGD"
-];
-function buildAvatar(){
-  var host = $('#avatar'); if(!host) return;
-  var n = PX.length, cell = 14, pad = 1, size = n*cell + pad*2;
-  var ns = 'http://www.w3.org/2000/svg';
-  var svg = doc.createElementNS(ns,'svg');
-  svg.setAttribute('viewBox','0 0 '+size+' '+size);
-  svg.setAttribute('width', size); svg.setAttribute('height', size);
-  var colors = { G:'var(--acc)', S:'var(--px-skin)', D:'var(--px-dark)', O:'var(--orange)' };
-  for(var y=0;y<n;y++){
-    for(var x=0;x<n;x++){
-      var ch = PX[y].charAt(x);
-      if(ch === '.') continue;
-      var r = doc.createElementNS(ns,'rect');
-      r.setAttribute('x', pad + x*cell); r.setAttribute('y', pad + y*cell);
-      r.setAttribute('width', cell); r.setAttribute('height', cell);
-      r.setAttribute('fill', colors[ch] || 'var(--acc)');
-      svg.appendChild(r);
-    }
-  }
-  host.appendChild(svg);
-}
 
 /* ============================================================
    2 · theme
@@ -1575,7 +1537,6 @@ function doTab(){
    11 · boot
    ============================================================ */
 function boot(){
-  buildAvatar();
   syncCliHeight();
   onScroll();
   tick();
