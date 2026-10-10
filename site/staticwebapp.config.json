@@ -4,7 +4,7 @@
   },
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/api/*", "*.{css,js,png,svg,ico}"]
+    "exclude": ["/api/*", "*.{css,js,png,jpg,webp,svg,ico,woff2}"]
   },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
