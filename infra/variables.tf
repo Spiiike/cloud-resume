@@ -15,6 +15,7 @@ variable "domain_name" {
   type        = string
   default     = "glasscliff.online"
 }
+
 variable "dns_zone_name" {
   description = "DNS zone name for the domain"
   type        = string
@@ -34,4 +35,10 @@ variable "tags" {
     "managedBy" = "terraform"
     "Project"   = "cloud-resume"
   }
+}
+
+variable "swa_location" {
+  description = "Region for the Static Web App"
+  type        = string
+  default     = "eastus2"
 }
