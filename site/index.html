@@ -460,6 +460,30 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
  .sk-group.hide{display:block!important}.section{padding:12px 0}.sec-head{margin-bottom:12px}
  .foot{border:0}.foot-in{padding:12px 0}a{overflow-wrap:anywhere}
 }
+
+/* Recruiter-facing view: terminal styling with calm, direct navigation. */
+html{scroll-behavior:auto}
+*,*::before,*::after{animation:none!important;transition:none!important}
+.reveal{opacity:1!important;transform:none!important}
+.avatar::after{display:none}
+.sk-group:hover,.proj:hover,.chip:hover,.btn:hover,.mini:hover{transform:none}
+.hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.primary-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.section-nav{display:flex;gap:10px 20px;flex-wrap:wrap;margin-top:20px;font-size:13px}
+.section-nav a{text-decoration:underline;text-underline-offset:4px}
+.section-intro{margin:-8px 0 22px;color:var(--dim);font-size:14px}
+.section-intro a{display:inline-block}
+.scope-details{margin-top:18px;border-top:1px solid var(--edge-2);padding-top:14px}
+.scope-details summary{cursor:pointer;color:var(--acc);font-size:13px;font-weight:700;padding:5px 0}
+.scope-details summary:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+.scope-details[open] summary{margin-bottom:10px}
+.role-scope{margin-top:14px;font-size:13.5px;color:var(--dim)}
+.visitor-note{margin-top:6px;color:var(--dim)}
+.visitor-note b{font-weight:400!important;color:var(--dim)!important}
+.hero-role{font-size:14px;line-height:1.5}
+@media(max-width:860px){.hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-stats .stat:last-child{grid-column:auto}}
+@media(max-width:480px){.primary-actions .btn{width:100%;justify-content:center}.stat{padding:8px}.stat span{font-size:9px;letter-spacing:0}}
+@media print{.primary-actions,.section-nav,.section-intro,.visitor-note{display:none!important}.hero-stats{grid-template-columns:repeat(3,1fr)}.hero-stats .stat:last-child{display:block!important}.scope-details{break-inside:auto}.scope-details summary{display:none}.scope-details>ul{display:grid!important}}
 </style>
 <meta name="author" content="Antalon Jackson Jr"><noscript><style>.reveal{opacity:1;transform:none}.hero-role,.chips,.cli-wrap{display:none}</style></noscript>
 </head>
@@ -467,8 +491,6 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 <body>
 <a class="skip" href="#main">Skip to resume content</a>
 <div id="prog" aria-hidden="true"></div>
-<div class="scan" aria-hidden="true"></div>
-
 <!-- ==================== CLI HEADER ==================== -->
 <div class="cli-wrap">
   <header class="cli" role="banner">
@@ -477,11 +499,9 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 
     <form class="cli-form" id="cliForm" autocomplete="off" role="search" aria-label="Terminal command bar">
       <label for="cliInput" class="ps">$</label>
-      <input id="cliInput" type="text" spellcheck="false" aria-describedby="cliHint" placeholder="type 'help' and press ⏎ — try: cat about.txt">
+      <input id="cliInput" type="text" spellcheck="false" aria-describedby="cliHint" placeholder="Optional terminal — type help">
       <span id="cliHint" class="dim" style="font-size:11px;white-space:nowrap">⌘/ctrl+K</span>
     </form>
-
-    <div class="cli-meta" aria-hidden="true">session <b id="uptime">00:00:00</b></div>
 
     <div class="cli-acts">
       <button class="ico" id="themeBtn" type="button" title="Toggle colour scheme (cmd: theme)" aria-label="Toggle colour scheme">◐</button>
@@ -505,36 +525,20 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   <!-- ==================== HERO ==================== -->
   <section class="wrap hero" id="home" aria-labelledby="heroName">
     <div class="hero-main">
-      <p class="kicker">terminal:2.0 — Antalon Jackson Jr · systems administrator</p>
-
-      <p class="hero-cmd" aria-hidden="true">
-        <span class="u">guest@terminal</span><span class="sep">:</span><span class="dir">~/resume</span><span class="sep">$</span>
-        <span class="dollar"> </span><span id="heroCmd"></span><span class="caret" id="heroCaret"></span>
-      </p>
+      <p class="kicker">Austin, Texas · Open to systems, identity &amp; cloud roles</p>
 
       <h1 class="hero-name" id="heroName" aria-label="Antalon Jackson Jr"><span>Antalon</span><span class="l2">Jackson <small class="name-suffix">Jr.</small></span></h1>
 
-<p class="hero-role" aria-live="off"><span id="roleType">Systems Administrator · Identity · Endpoint · Cloud</span><span class="caret sm" aria-hidden="true"></span></p>
+<p class="hero-role" aria-live="off"><span id="roleType">Systems Administrator · Identity · Endpoint · Cloud</span></p>
 
-<p class="hero-bio">I own identity and endpoint management for approximately 750 devices and share responsibility for a 90-server hybrid estate. Entra ID SSO across 40+ applications, PowerShell and Logic Apps automation, and nine years in enterprise IT. Automate it, then document it.</p>
-<div class="chips" role="group" aria-label="Quick commands">
-        <button class="chip" type="button" data-cmd="whoami"><span class="d">$</span> whoami</button>
-        <button class="chip" type="button" data-cmd="cat about.txt"><span class="d">$</span> cat about.txt</button>
-        <button class="chip" type="button" data-cmd="run skills.sh"><span class="d">$</span> run skills.sh</button>
-        <button class="chip" type="button" data-cmd="cd experience"><span class="d">$</span> cd experience</button>
-        <button class="chip" type="button" data-cmd="ls projects/"><span class="d">$</span> ls projects/</button>
-        <button class="chip" type="button" data-cmd="cat education.log"><span class="d">$</span> cat education.log</button>
-        <button class="chip o" type="button" data-cmd="sudo hire-me"><span class="d">#</span> sudo hire-me</button>
-        <button class="chip" type="button" data-cmd="help"><span class="d">$</span> help</button>
-      </div>
+<p class="hero-bio">Nine years in enterprise IT. I own Intune and Jamf administration for approximately 750 endpoints, lead identity integrations across 40+ applications, and automate the work that keeps a hybrid environment running.</p>
+<div class="primary-actions" role="group" aria-label="Portfolio and contact"><a class="btn" href="https://projects.glasscliff.online" target="_blank" rel="noopener">View live projects ↗</a><a class="btn ghost" href="#experience">View experience ↓</a><a class="btn ghost" href="mailto:antalonj@gmail.com">Contact me</a></div>
 
-      <div class="hero-stats">
+      <nav class="section-nav" aria-label="Resume sections"><a href="#projects">Projects</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#education">Certifications</a><a href="#contact">Contact</a></nav><div class="hero-stats">
   <div class="stat"><b data-count="9" data-suffix="+">9+</b><span>years in IT</span></div>
   <div class="stat"><b data-count="750" data-suffix="">750</b><span>current endpoints</span></div>
   <div class="stat"><b data-count="40" data-suffix="+">40+</b><span>apps on SSO</span></div>
-  <div class="stat"><b data-count="1300" data-suffix="+">1300+</b><span>MDM devices at Tesla</span></div>
-  <div class="stat"><b id="visitorCount" data-suffix="">—</b><span>site visitors</span></div>
-</div>
+  </div>
 </div>
 
     <aside class="side" aria-label="Operator profile">
@@ -550,66 +554,63 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   </dl>
 </div>
 
-      <div class="card org-sh">
-  <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">// current mission</div>
-  <p style="font-size:13.5px">Owning identity and endpoint management at Electric Power Engineers — Entra ID SSO across 40+ applications, production SCIM provisioning, Intune and Jamf for ~750 devices, and automation that saves 15–20 hours a week.</p>
-  <div class="tags" style="margin-top:12px">
-    <span class="tag hi">Entra ID</span><span class="tag hi">Intune</span><span class="tag">PowerShell</span><span class="tag">Azure Arc</span>
+      </aside>
+  </section>
+
+  <section class="section wrap" id="projects" aria-labelledby="projTitle">
+    <div class="sec-head reveal">
+      <h2 class="sec-title" id="projTitle" data-type="LIVE PROJECTS">LIVE PROJECTS</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>ls projects/</b></span>
+    </div>
+
+    <p class="section-intro">Explore working labs and the implementation behind them. <a href="https://projects.glasscliff.online" target="_blank" rel="noopener">Browse all live projects ↗</a></p><div class="proj-grid"><article class="proj card flat reveal" id="p-azure-landing-zone">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/azure-landing-zone</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <h3>azure-landing-zone</h3>
+    <p>Landing zone architecture built in Terraform: virtual machines, Entra ID groups and Azure Policy assignments, structured to demonstrate subscription governance and policy inheritance rather than one-off resource creation.</p>
+    <div class="tags"><span class="tag hi">Terraform</span><span class="tag">Azure Policy</span><span class="tag">Entra ID</span><span class="tag">Governance</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/" target="_blank" rel="noopener">Open landing zone lab ↗</a></div>
   </div>
+</article>
+
+<article class="proj card flat reveal" id="p-okta-lifecycle-lab">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/okta-lifecycle-lab</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <h3>okta-lifecycle-lab</h3>
+    <p>Live Okta integration with a custom SCIM 2.0 endpoint, an OIDC/PKCE application, and session revocation on offboarding. The development tenant uses SSO, MFA and group-based provisioning to demonstrate the joiner, mover and leaver lifecycle.</p>
+    <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM 2.0</span><span class="tag">OIDC / PKCE</span><span class="tag">Session revocation</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/identity" target="_blank" rel="noopener">Open identity lab ↗</a></div>
+  </div>
+</article>
+
+<article class="proj card flat reveal" id="p-cloud-resume">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/cloud-resume</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <h3>cloud-resume <span class="ver">this site</span></h3>
+    <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, every resource declared in Terraform, and GitHub Actions deploying on green tests with OIDC federation — no stored cloud credentials.</p>
+    <div class="tags"><span class="tag hi">Terraform</span><span class="tag hi">Azure</span><span class="tag">Python</span><span class="tag">Cosmos DB</span><span class="tag">GitHub Actions</span></div>
+    <div class="proj-foot"><a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">View source on GitHub ↗</a></div>
+  </div>
+</article>
+
+<article class="proj card flat reveal" id="p-project-hub">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/glasscliff</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <h3>Glasscliff project hub</h3>
+    <p>The shared home for my working infrastructure and identity labs. Open the hub to explore the Azure landing zone and Okta lifecycle builds in one place.</p>
+    <div class="tags"><span class="tag hi">Node.js</span><span class="tag">App Service</span><span class="tag">Azure</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online" target="_blank" rel="noopener">Open project hub ↗</a></div>
+  </div>
+</article>
 </div>
-</aside>
   </section>
 
   <!-- ==================== LS LISTING ==================== -->
-  <section class="section wrap" id="index" aria-label="Resume file index">
-    <div class="sec-head reveal">
-      <span class="sec-num">00</span>
-      <h2 class="sec-title" data-type="FILE_INDEX">FILE_INDEX</h2>
-      <span class="sec-rule" aria-hidden="true"></span>
-      <span class="sec-cmd">~/resume $ <b>ls -la</b></span>
-    </div>
-
-    <div class="card flat reveal" style="padding:0;overflow:hidden">
-      <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>guest@terminal: ~/resume</b><span class="sp"></span><span>ls -la</span></div>
-      <div class="ls-total">7 entries — select a section or print a copy</div>
-      <ul class="ls">
-        <li data-cmd="cat about.txt">
-          <span class="perm">-rw-r--r--</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn" href="#about">about.txt</a><span class="go">cat ↵</span>
-        </li>
-        <li data-cmd="run skills.sh">
-          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn dir" href="#skills">skills_matrix/</a><span class="go">run ↵</span>
-        </li>
-        <li data-cmd="cd experience">
-          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn dir" href="#experience">experience/</a><span class="go">cd ↵</span>
-        </li>
-        <li data-cmd="ls projects/">
-          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn dir" href="#projects">projects/</a><span class="go">ls ↵</span>
-        </li>
-        <li data-cmd="cat education.log">
-          <span class="perm">-rw-r--r--</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn" href="#education">education.log</a><span class="go">cat ↵</span>
-        </li>
-        <li data-cmd="print resume.pdf">
-          <span class="perm">-rwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn" href="#contact">print / save PDF</a><span class="go">cat ↵</span>
-        </li>
-        <li data-cmd="cd contact">
-          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
-          <a class="fn dir" href="#contact">contact/</a><span class="go">cd ↵</span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
   <!-- ==================== ABOUT ==================== -->
   <section class="section wrap" id="about" aria-labelledby="aboutTitle">
     <div class="sec-head reveal">
-      <span class="sec-num">01</span>
-      <h2 class="sec-title" id="aboutTitle" data-type="ABOUT.TXT">ABOUT.TXT</h2>
+      <h2 class="sec-title" id="aboutTitle" data-type="ABOUT">ABOUT</h2>
       <span class="sec-rule" aria-hidden="true"></span>
       <span class="sec-cmd">~/resume $ <b>cat about.txt</b></span>
     </div>
@@ -617,10 +618,8 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
     <div class="about-grid">
       <article class="card reveal" style="padding:0;overflow:hidden">
         <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>about.txt</b><span class="sp"></span><span>utf-8 · LF</span></div>
-        <div class="term-body"><p><span class="ln-pref">01</span>  Systems administrator with nine years across enterprise technology, aerospace, automotive manufacturing and engineering consulting. I work the identity-to-endpoint seam: who gets access, on what device, under which policy — and how all three get provisioned without anyone filing a ticket.</p>
-<p>02  At Electric Power Engineers I was promoted from Help Desk within a month. I own Intune and Jamf for roughly 750 endpoints, administer M365 and hybrid AD/Entra ID, and share responsibility for approximately 90 servers across five sites. I led SSO integrations across 40+ applications, production SCIM provisioning, and phishing-resistant MFA initiatives.</p>
-<p><span class="ln-pref">03</span>  I measure work in hours given back. Joiner-mover-leaver automation: 15–20 hours a week. Technician workstation build: a full day down to twenty minutes. Those numbers came from PowerShell, Microsoft Graph, Logic Apps and Azure Functions, not from working later.</p>
-<p><span class="ln-pref">04</span>  Off-clock: building this site, an Azure landing zone in Terraform, and an Okta lifecycle lab — because the fastest way to understand an identity platform is to break one you own.</p>
+        <div class="term-body"><p></p>
+<p>I spend a lot of time doing work, learning new technologies, making projects (like this one.) But, outside of work, I'm a big movie enthusiast (though I wouldn't define myself as a movie buff based on the amount of classics I've missed. Sorry, I've never seen Titantic!) I spend time with my dog, try to find weird, niche events to check out around town, currently I'm trying to make a patio garden and limit my sidequests -- I'm too prone to committing to a new hobby like learning how to smelt.</p>
 
 <div class="facts">
   <div class="fact"><span>location</span><span>Austin, Texas · on-site, hybrid or remote</span></div>
@@ -644,16 +643,13 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 </ul>
 </div>
 
-        <div class="card reveal">
-          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px">// operating principles</div>
-          <ul class="neo-list">
+        <div class="card reveal"><details class="scope-details"><summary>How I approach the work</summary><ul class="neo-list">
             <li>Boring tech wins; exciting tech needs a business case</li>
             <li>Observability first — you cannot fix what you cannot see</li>
             <li>Smallest possible diff that solves the real problem</li>
             <li>Write it down: docs are a feature, not a chore</li>
           </ul>
-          <button class="chip" type="button" data-cmd="neofetch" style="margin-top:14px"><span class="d">$</span> neofetch</button>
-        </div>
+          </details></div>
       </div>
     </div>
   </section>
@@ -661,8 +657,7 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   <!-- ==================== SKILLS ==================== -->
   <section class="section wrap" id="skills" aria-labelledby="skillsTitle">
     <div class="sec-head reveal">
-      <span class="sec-num">02</span>
-      <h2 class="sec-title" id="skillsTitle" data-type="SKILLS_MATRIX">SKILLS_MATRIX</h2>
+      <h2 class="sec-title" id="skillsTitle" data-type="SKILLS">SKILLS</h2>
       <span class="sec-rule" aria-hidden="true"></span>
       <span class="sec-cmd">~/resume $ <b>run skills.sh</b></span>
     </div>
@@ -705,9 +700,9 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
     <div class="skill"><div class="sk-top"><b>Microsoft 365 administration</b></div></div>
     <div class="skill"><div class="sk-top"><b>Azure (Arc, Functions, Policy)</b></div></div>
     <div class="skill"><div class="sk-top"><b>Terraform / IaC</b></div></div>
-    <div class="skill"><div class="sk-top"><b>Hyper-V / virtualisation</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Hyper-V / SCVMM</b></div></div>
     <div class="skill"><div class="sk-top"><b>AWS (EC2, VPN)</b></div></div>
-    <div class="skill"><div class="sk-top"><b>Linux / RHEL</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Linux administration / baselines</b></div></div>
   </div>
 </div>
 
@@ -748,8 +743,7 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   <!-- ==================== EXPERIENCE ==================== -->
   <section class="section wrap" id="experience" aria-labelledby="expTitle">
     <div class="sec-head reveal">
-      <span class="sec-num">03</span>
-      <h2 class="sec-title" id="expTitle" data-type="EXPERIENCE/">EXPERIENCE/</h2>
+      <h2 class="sec-title" id="expTitle" data-type="EXPERIENCE">EXPERIENCE</h2>
       <span class="sec-rule" aria-hidden="true"></span>
       <span class="sec-cmd">~/resume $ <b>git log --oneline --author=antalon</b></span>
 </div>
@@ -762,16 +756,12 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
     </div>
     <span class="badge now">FEB 2025 — PRESENT</span>
   </div>
-  <ul>
-    <li>Promoted out of Help Desk within the first month; now the senior escalation point for identity, endpoint, infrastructure and SaaS integration across <b class="acc">90 servers</b> and ~750 endpoints.</li>
-    <li>Saved <b class="acc">15–20 hours of manual work weekly</b> by engineering end-to-end joiner-mover-leaver and HRIS-to-AD automation with Logic Apps, Azure Functions, Microsoft Graph and Workato.</li>
+  <p class="role-scope">Promoted from Help Desk within the first month; senior escalation for identity, endpoints, infrastructure and SaaS integration. Share responsibility for 90 servers, Hyper-V and cross-site storage; mentor technicians and lead implementation projects.</p><ul>
+    <li>Saved an estimated 15–20 hours of manual work weekly through onboarding/offboarding, licensing and VM provisioning automation using PowerShell, Microsoft Graph, Logic Apps and Azure Functions.</li>
     <li>Led Entra ID SSO integrations across 40+ SaaS applications and production SCIM provisioning for key platforms; implemented Conditional Access, privileged access controls, phishing-resistant MFA and Windows Hello for Business.</li>
-    <li>Cut technician workstation setup from a full day to <b class="acc">20 minutes</b> by building the Intune environment, implementing Windows Autopilot and standardising macOS management via Jamf Pro.</li>
-    <li>Centralised patching and policy across a 90-server hybrid estate with Azure Arc, Update Manager and Azure Policy; deployed infrastructure with ARM/Bicep and migrated to AD-integrated DNS.</li>
-    <li>Limited downtime during a firewall zero-day outage by leading incident response and executing an emergency company-wide VPN migration. Configured a firewall-based site-to-site VPN so AWS EC2 instances could reach on-premises license servers.</li>
-    <li>Supported SOC 2, NIST and ISO control requirements through access reviews, system documentation, change controls and security-policy implementation.</li>
-  </ul>
-  <div class="job-foot">
+    <li>Cut technician workstation setup from a full day to roughly 20 minutes by building the Intune environment and implementing Windows Autopilot; deployed Jamf Pro to standardize macOS management.</li>
+    <li>Own Intune and Jamf administration for approximately <b class="acc">750 endpoints</b> (700 Windows and 50 macOS), plus iOS/Android devices. Reported compliance at the time of this résumé: <b class="acc">100% of Macs and 96% of Windows devices</b>.</li><li>Created and automated Linux configuration baselines, migrated standalone DNS to AD-integrated DNS, and managed hybrid servers through Azure Arc, Update Manager and Azure Policy.</li></ul>
+  <details class="scope-details"><summary>Identity, endpoint &amp; lifecycle implementation</summary><ul><li>Led the HRIS-to-Active Directory integration project, including vendor evaluation, selection and implementation, identity-data alignment, and ongoing vendor troubleshooting.</li><li>Built onboarding/offboarding applications and automated Microsoft license provisioning and removal, with production SCIM provisioning for key SaaS platforms.</li><li>Built the Company Portal application catalog and packaged company-wide applications; configured enrollment, compliance policies, update rings and remediation workflows.</li><li>Deployed Jamf Pro end to end, including enrollment, policies, smart groups and Self Service. Managed Apple Business Manager, CIS-aligned macOS baselines, Defender for Endpoint and attack surface reduction policies.</li><li>Administered Exchange Online, SharePoint, Teams and OneDrive alongside hybrid Active Directory and Entra ID; implemented approved external-sharing expiration settings and access controls.</li></ul></details><details class="scope-details"><summary>Infrastructure, incident response &amp; recovery</summary><ul><li>Migrated standalone DNS to AD-integrated DNS, removed stale zones and records, corrected DHCP DNS assignments, and validated name resolution and replication.</li><li>Built and maintained Linux systems for subnet routing, internal applications, office information displays and long-running simulations; standardized configuration and patching.</li><li>Restored connectivity during recurring SonicWall outages, performed root-cause analysis, established backup connectivity and designed a longer-term firewall replacement approach.</li><li>Led incident response during a firewall zero-day outage and executed an emergency company-wide VPN migration. Configured a firewall-based site-to-site VPN so AWS EC2 instances could reach on-premises license servers.</li><li>Built a Hyper-V VM creation application that automated the manual steps normally performed in Hyper-V Manager; provisioned temporary virtual machines for departmental projects.</li><li>Shared responsibility for Hyper-V/SCVMM and cross-site storage; participated in twice-yearly restore tests of virtual machines, domain controllers, files and folders, documenting and validating results.</li></ul></details><details class="scope-details"><summary>Operational tools, workflow automation &amp; documentation</summary><ul><li>Built and deployed a production OneDrive access portal for managers requesting departed-user data, incorporating time-bound access and HR/Jira process handling.</li><li>Built and deployed production travel-request automation for approval routing, temporary group membership, ticket closure and SharePoint logging.</li><li>Built Docebo/Workato provisioning logic and directory manager-status automation to improve downstream identity-data consistency.</li><li>Built Jira request workflows and an LLM-integrated pipeline that converts resolved incidents into draft knowledge articles and post-incident reviews for peer review.</li><li>Created a Teams welcome card directing new hires to Company Portal, Jira and Confluence; documented repeatable procedures and mentored technicians on endpoint administration and troubleshooting.</li><li>Supported SOC 2, NIST and ISO control requirements through access reviews, system documentation, change controls and security-policy implementation.</li></ul></details><div class="job-foot">
     <div class="tags"><span class="tag hi">Entra ID</span><span class="tag hi">Intune</span><span class="tag">Jamf Pro</span><span class="tag">Azure Arc</span><span class="tag">Logic Apps</span><span class="tag">PowerShell</span><span class="tag">AWS</span></div>
   </div>
 </li>
@@ -788,7 +778,7 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
     <li>Delivered Tier 1 and Tier 2 incident response for a global user base through the SolarWinds Service Desk, supporting daily IT operations and hardware lifecycles.</li>
     <li>Accelerated a <b class="acc">Windows 11 migration with zero data loss</b> by engineering PowerShell scripts to automate Autopilot hardware hash imports and user profile backups.</li>
   </ul>
-  <div class="job-foot">
+  <details class="scope-details"><summary>Additional operational scope</summary><ul><li>Supported Windows and macOS users at the Austin headquarters and remotely; handled new-hire device setup, on-site inventory and reusable documentation for the IT team.</li></ul></details><div class="job-foot">
     <div class="tags"><span class="tag hi">PowerShell</span><span class="tag">Windows 11</span><span class="tag">Autopilot</span><span class="tag">Service Desk</span></div>
   </div>
 </li>
@@ -797,15 +787,15 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   <div class="job-top">
     <div>
       <h3>IT Services Technician II</h3>
-      <p class="co">@ SpaceX <span class="loc">· Austin, TX · on-site · ITAR-controlled M365 GCC</span></p>
+      <p class="co">@ SpaceX <span class="loc">· Bastrop, TX · on-site · ITAR-controlled M365 GCC</span></p>
     </div>
     <span class="badge">JUL 2023 — DEC 2023</span>
   </div>
   <ul>
     <li>Primary on-site administrator for Intune, Jamf and Apple Business Manager, supporting production and engineering users in a strictly <b class="acc">ITAR-controlled Microsoft 365 GCC environment</b>.</li>
-    <li>Reduced technician ramp time and eliminated single-point dependencies by writing comprehensive infrastructure runbooks and coordinating complex rollouts with remote network and security teams.</li>
+    <li>Wrote infrastructure runbooks and coordinated rollouts with remote network and security teams to support technician onboarding and repeatable operations.</li>
   </ul>
-  <div class="job-foot">
+  <details class="scope-details"><summary>Production systems &amp; networking scope</summary><ul><li>Supported Windows, macOS and Linux workstations alongside production equipment, mobile devices and Zebra printers.</li><li>Patched and configured network connectivity from device drops to switch ports for user and production needs; assisted with network-device troubleshooting.</li><li>Managed Jira queues, IT equipment procurement and assets, and documented operational procedures for the Bastrop site.</li></ul></details><div class="job-foot">
     <div class="tags"><span class="tag hi">M365 GCC</span><span class="tag">ITAR</span><span class="tag">Intune</span><span class="tag">Jamf</span><span class="tag">Apple Business Manager</span></div>
   </div>
 </li>
@@ -816,14 +806,14 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
       <h3>IT Manufacturing &amp; Desktop Support Technician</h3>
       <p class="co">@ Tesla <span class="loc">· Buffalo, NY → Austin, TX · on-site · 24/7 manufacturing</span></p>
     </div>
-    <span class="badge">MAR 2020 — JUL 2023</span>
+    <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="badge">MAR 2020 — JUN 2022</span><span class="badge">SEP 2022 — JUL 2023</span></div>
   </div>
   <ul>
     <li>Imaged and managed <b class="acc">1,200+ workstations</b> supporting round-the-clock manufacturing and corporate users.</li>
     <li>Created configuration profiles and policy enforcement across <b class="acc">1,300+ devices</b> as the primary on-site MDM administrator for Jamf and Workspace ONE.</li>
-    <li>Eliminated manual ticketing bottlenecks by building Power Automate flows and PowerShell scripts that handled hardware orders and repetitive IT support tasks automatically.</li>
+    <li>Built Power Automate flows and PowerShell scripts for ticket intake, Teams issue alerts, equipment-order notifications and recurring support tasks.</li>
   </ul>
-  <div class="job-foot">
+  <details class="scope-details"><summary>Manufacturing infrastructure &amp; earlier desktop scope</summary><ul><li>Configured and supported Windows/Linux manufacturing machines, Zebra scanners and printers, and iPads in production environments.</li><li>Patched and configured network ports; used SolarWinds network tools for IP address allocation and network troubleshooting.</li><li>Managed print servers and assisted with server installation and intermediate distribution frame (IDF) maintenance.</li><li>Earlier desktop responsibilities included Windows, macOS and Linux deployments for 500+ users on-site and across the East Coast, new-hire orientation, and IT asset procurement.</li></ul></details><div class="job-foot">
     <div class="tags"><span class="tag hi">Jamf</span><span class="tag hi">Workspace ONE</span><span class="tag">Power Automate</span><span class="tag">PowerShell</span><span class="tag">Imaging</span></div>
   </div>
 </li>
@@ -837,10 +827,10 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
     <span class="badge">JAN 2017 — MAR 2020</span>
   </div>
   <ul>
-    <li>Resolved high-volume incidents through ServiceNow and managed endpoint configurations for a large distributed user base.</li>
+    <li>Delivered contracted service desk support for IBM clients New York State and Anthem, Inc. and its subsidiaries in HIPAA-regulated environments. Resolved high-volume incidents through ServiceNow and managed endpoint configurations across a distributed user base.</li>
     <li>Maintained application performance across remote devices by executing targeted software deployments and troubleshooting via SCCM.</li>
   </ul>
-  <div class="job-foot">
+  <details class="scope-details"><summary>Troubleshooting, escalation &amp; training</summary><ul><li>Used Splunk to investigate user-account and network issues and managed VIP and escalation queues through ServiceNow.</li><li>Created troubleshooting documentation and trained new hires on support methods and enterprise applications.</li></ul></details><div class="job-foot">
     <div class="tags"><span class="tag">ServiceNow</span><span class="tag">SCCM</span><span class="tag">Endpoint config</span></div>
   </div>
 </li>
@@ -848,83 +838,10 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   </section>
 
   <!-- ==================== PROJECTS ==================== -->
-  <section class="section wrap" id="projects" aria-labelledby="projTitle">
-    <div class="sec-head reveal">
-      <span class="sec-num">04</span>
-      <h2 class="sec-title" id="projTitle" data-type="PROJECTS/">PROJECTS/</h2>
-      <span class="sec-rule" aria-hidden="true"></span>
-      <span class="sec-cmd">~/resume $ <b>ls projects/</b></span>
-    </div>
-
-    <div class="proj-grid"><article class="proj card flat reveal" id="p-cloud-resume">
-  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/cloud-resume</b><span class="sp"></span><span>public</span></div>
-  <div class="proj-body">
-    <p class="proj-cmd">$ <b>terraform apply</b></p>
-    <h3>cloud-resume <span class="ver">this site</span></h3>
-    <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, every resource declared in Terraform, and GitHub Actions deploying on green tests with OIDC federation — no stored cloud credentials.</p>
-    <div class="tags"><span class="tag hi">Terraform</span><span class="tag hi">Azure</span><span class="tag">Python</span><span class="tag">Cosmos DB</span><span class="tag">GitHub Actions</span></div>
-    <div class="proj-foot">
-      <span style="display:flex;gap:6px;flex-wrap:wrap">
-        <a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">github ↗</a>
-        <button class="mini" type="button" data-cmd="open cloud-resume">inspect ⌁</button>
-      </span>
-    </div>
-  </div>
-</article>
-
-<article class="proj card flat reveal" id="p-azure-landing-zone">
-  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/azure-landing-zone</b><span class="sp"></span><span>public</span></div>
-  <div class="proj-body">
-    <p class="proj-cmd">$ <b>terraform plan</b></p>
-    <h3>azure-landing-zone</h3>
-    <p>Landing zone architecture built in Terraform: virtual machines, Entra ID groups and Azure Policy assignments, structured to demonstrate subscription governance and policy inheritance rather than one-off resource creation.</p>
-    <div class="tags"><span class="tag hi">Terraform</span><span class="tag">Azure Policy</span><span class="tag">Entra ID</span><span class="tag">Governance</span></div>
-    <div class="proj-foot">
-      <span style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="mini" type="button" data-cmd="open azure-landing-zone">inspect ⌁</button>
-      </span>
-    </div>
-  </div>
-</article>
-
-<article class="proj card flat reveal" id="p-okta-lifecycle-lab">
-  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/okta-lifecycle-lab</b><span class="sp"></span><span>public</span></div>
-  <div class="proj-body">
-    <p class="proj-cmd">$ <b>./simulate-joiner.sh</b></p>
-    <h3>okta-lifecycle-lab</h3>
-    <p>A development tenant configured with SSO, MFA, SCIM and group rules, plus a lifecycle simulator that walks a synthetic identity through joiner, mover and leaver events to prove the provisioning and deprovisioning paths actually fire.</p>
-    <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM</span><span class="tag">SAML</span><span class="tag">Lifecycle</span></div>
-    <div class="proj-foot">
-      <span style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="mini" type="button" data-cmd="open okta-lifecycle-lab">inspect ⌁</button>
-      </span>
-    </div>
-  </div>
-</article>
-
-<article class="proj card flat reveal" id="p-clemo">
-  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/clemo</b><span class="sp"></span><span>public</span></div>
-  <div class="proj-body">
-    <p class="proj-cmd">$ <b>az webapp up</b></p>
-    <h3>clemo</h3>
-    <p>Node application running on Azure App Service, deployed from GitHub and served at projects.glasscliff.online with a managed certificate.</p>
-    <div class="tags"><span class="tag hi">Node.js</span><span class="tag">App Service</span><span class="tag">Azure</span></div>
-    <div class="proj-foot">
-      <span style="display:flex;gap:6px;flex-wrap:wrap">
-        <a class="mini" href="https://projects.glasscliff.online" target="_blank" rel="noopener">live ↗</a>
-        <a class="mini" href="https://github.com/Spiiike/clemo" target="_blank" rel="noopener">github ↗</a>
-      </span>
-    </div>
-  </div>
-</article>
-</div>
-  </section>
-
   <!-- ==================== EDUCATION ==================== -->
   <section class="section wrap" id="education" aria-labelledby="eduTitle">
     <div class="sec-head reveal">
-      <span class="sec-num">05</span>
-      <h2 class="sec-title" id="eduTitle" data-type="EDUCATION.LOG">EDUCATION.LOG</h2>
+      <h2 class="sec-title" id="eduTitle" data-type="CERTIFICATIONS &amp; LEARNING">CERTIFICATIONS &amp; LEARNING</h2>
       <span class="sec-rule" aria-hidden="true"></span>
       <span class="sec-cmd">~/resume $ <b>tail -f education.log</b></span>
     </div>
@@ -962,8 +879,7 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
   <!-- ==================== CONTACT ==================== -->
   <section class="section wrap" id="contact" aria-labelledby="contactTitle">
     <div class="sec-head reveal">
-      <span class="sec-num">06</span>
-      <h2 class="sec-title" id="contactTitle" data-type="CONTACT/">CONTACT/</h2>
+      <h2 class="sec-title" id="contactTitle" data-type="CONTACT">CONTACT</h2>
       <span class="sec-rule" aria-hidden="true"></span>
       <span class="sec-cmd">~/resume $ <b>mail --to antalonj@gmail.com</b></span>
     </div>
@@ -983,7 +899,6 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 <div class="r"><span class="n">github</span><a class="u" href="https://github.com/Spiiike" target="_blank" rel="noopener">github.com/Spiiike</a><span class="m">origin</span></div>
 <div class="r"><span class="n">site</span><a class="u" href="https://glasscliff.online">glasscliff.online</a><span class="m">www</span></div>
 <div class="r"><span class="n">projects</span><a class="u" href="https://projects.glasscliff.online" target="_blank" rel="noopener">projects.glasscliff.online</a><span class="m">archive</span></div>
-<div class="r"><span class="n">phone</span><a class="u" href="tel:+17165983637">(716) 598-3637</a><span class="m">direct</span></div>
 </div>
         </div>
 
@@ -1006,17 +921,11 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 
 <!-- ==================== FOOTER ==================== -->
 <footer class="foot">
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span>● open to systems administration · identity · cloud roles <i>//</i> austin, tx — on-site, hybrid or remote <i>//</i> az-104 · security+ · md-102 · rhcsa <i>//</i> entra id · intune · terraform · powershell <i>//</i> </span>
-<span>● open to systems administration · identity · cloud roles <i>//</i> austin, tx — on-site, hybrid or remote <i>//</i> az-104 · security+ · md-102 · rhcsa <i>//</i> entra id · intune · terraform · powershell <i>//</i> </span>
-</div>
-  </div>
   <div class="wrap foot-in">
     <div>
       <div><b>guest@terminal</b>:~/resume$ exit</div>
       <div>© <span id="yr">2026</span> Antalon Jackson Jr · hand-written HTML/CSS/JS · deployed with Terraform</div>
-</div>
+<div class="visitor-note">Site visitors: <b id="visitorCount" data-suffix="">—</b></div></div>
     <div class="foot-acts">
       <button class="chip" type="button" data-cmd="theme"><span class="d">$</span> theme</button>
       <button class="chip" type="button" data-cmd="print resume.pdf"><span class="d">$</span> ⎙ print</button>
@@ -1038,7 +947,7 @@ h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
 var doc = document, root = doc.documentElement;
 function $(s,c){ return (c||doc).querySelector(s); }
 function $$(s,c){ return Array.prototype.slice.call((c||doc).querySelectorAll(s)); }
-var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var REDUCE = true; // Calm by default: no unsolicited animation.
 function esc(s){ return String(s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function wait(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
 
@@ -1216,11 +1125,11 @@ var DIRS = {
   'education':'education', 'education.log':'education',
   'contact':'contact', 'contact/':'contact'
 };
-var PROJECTS = ["cloud-resume", "azure-landing-zone", "okta-lifecycle-lab", "clemo"];
+var PROJECTS = ["azure-landing-zone", "okta-lifecycle-lab", "cloud-resume", "project-hub"];
 
 var ABOUT_TXT = ["Antalon Jackson Jr — Systems Administrator — Austin, TX", "9+ years in enterprise IT. Identity, endpoints and hybrid infrastructure.", "Current: Electric Power Engineers · promoted from Help Desk within a month.", "~750 current endpoints · shared responsibility for 90 servers · 40+ SSO apps.", "PowerShell, Microsoft Graph, Logic Apps, Entra ID, Intune, Jamf and Azure.", "Open to systems, identity, endpoint and cloud roles."];
 var EDU_TXT = ["2026Microsoft Certified: Azure Administrator Associate (AZ-104)", "2025CompTIA Security+ (SY0-701)", "2025Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)", "2025Red Hat Certified System Administrator (RHCSA, EX200)", "2025ITIL Foundation", "2026AWS Certified AI Practitioner (AIF-C01)", "Hands-on labs: Terraform landing zone and Okta lifecycle simulator."];
-var CONTACT_TXT = ["Email: antalonj@gmail.com", "Phone: (716) 598-3637", "GitHub: github.com/Spiiike", "Portfolio: glasscliff.online", "Projects: projects.glasscliff.online", "Austin, TX · US Central · remote preferred"];
+var CONTACT_TXT = ["Email: antalonj@gmail.com", "GitHub: github.com/Spiiike", "Portfolio: glasscliff.online", "Projects: projects.glasscliff.online", "Austin, TX · US Central · remote preferred"];
 var NEOFETCH = ["Antalon Jackson Jr", "Role: Systems Administrator", "Focus: identity · endpoint · cloud", "Platforms: Entra ID · Intune · Jamf · Azure · M365", "Automation: PowerShell · Graph · Logic Apps · Terraform", "Location: Austin, Texas · US Central"];
 var TREE = ["~/resume", "about.txt — professional summary", "skills_matrix/ — 6 groups · 32 entries", "experience/ — 5 employers · 2017 to present", "projects/ — 4 portfolio projects", "education.log — certifications and professional development", "contact/ — email, phone and portfolio", "print resume.pdf — browser print / Save as PDF"];
 var HELP = [
@@ -1259,7 +1168,7 @@ CMDS.ls = function(args){
     goto('projects'); addLine('projects/ — 4 portfolio projects', 'mut');
     PROJECTS.forEach(function(p){addLine('  '+p+'  [open '+p+']','ok');});
   } else if(target && DIRS[target]) { goto(DIRS[target]); addLine(target+'/','ok'); }
-  else { TREE.forEach(function(r){addLine(r,'mut');}); goto('index'); }
+  else { TREE.forEach(function(r){addLine(r,'mut');}); goto('home'); }
   return Promise.resolve();
 };
 
@@ -1344,7 +1253,7 @@ CMDS.grep = function(args){
   var hits = [];
   ids.forEach(function(id){
     var el = doc.getElementById(id); if(!el) return;
-    var lines = (el.innerText || '').split('\n');
+    var lines = (el.textContent || '').split('\n');
     for(var i=0;i<lines.length;i++){
       var ln = lines[i].trim();
       if(!ln) continue;
@@ -1363,6 +1272,7 @@ CMDS.grep = function(args){
     addLine(h.id + '.txt:' + h.n + ': ' + h.t, 'mut');
   });
   if(hits.length > 8) addLine('… and ' + (hits.length-8) + ' more', 'mut');
+  $$('#'+hits[0].id+' details').forEach(function(el){el.open=true;});
   goto(hits[0].id, {hold: 2200});
   return Promise.resolve();
 };
@@ -1409,13 +1319,13 @@ CMDS.print = function(){
 
 CMDS.sudo = function(args){
   if(args[0] !== 'hire-me' && args[0] !== 'hire'){addLine('usage: sudo hire-me','mut');return Promise.resolve();}
-  goto('contact'); addLine('Contact Antalon: antalonj@gmail.com · (716) 598-3637','ok');
+  goto('contact'); addLine('Contact Antalon: antalonj@gmail.com','ok');
   return Promise.resolve();
 };
 CMDS.git = function(args){
   if(args[0] === 'log'){
     goto('experience');
-    return typeLines(['2025–present: Electric Power Engineers','2024: SolarWinds','2023: SpaceX','2020–2023: Tesla','2017–2020: IBM'],'ok',4);
+    return typeLines(['2025–present: Electric Power Engineers','2024: SolarWinds','2023: SpaceX','Mar 2020–Jun 2022; Sep 2022–Jul 2023: Tesla','2017–2020: IBM'],'ok',4);
   }
   addLine('usage: git log — career timeline','mut');return Promise.resolve();
 };
@@ -1678,17 +1588,15 @@ function boot(){
   addLine('last login: ' + new Date().toUTCString().replace('GMT','UTC'), 'mut');
   addLine('', '');
 
-  typer($('#heroCmd'), ['whoami','cat about.txt','run skills.sh','cd experience','ls projects/','sudo hire-me'], {hold:1500});
-var ROLES = [
-  'systems administrator // identity · endpoint · cloud',
-  'entra id · intune · jamf · workspace one',
-  'powershell · microsoft graph · logic apps · terraform',
-  'az-104 · security+ · md-102 · rhcsa'
-];
 
-  typer($('#roleType'), ROLES, {hold:2100, typeSpeed:52, delSpeed:26});
+
   loadVisitorCount();
 
+  var printDetails = [];
+  window.addEventListener('beforeprint',function(){
+    printDetails = $$('details').map(function(el){var state={el:el,open:el.open};el.open=true;return state;});
+  });
+  window.addEventListener('afterprint',function(){printDetails.forEach(function(state){state.el.open=state.open;});});
   /* events ------------------------------------------------ */
   var form = $('#cliForm');
   if(form){
@@ -1765,7 +1673,7 @@ var ROLES = [
 
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', function(){ syncCliHeight(); });
-  setInterval(tick, 1000);
+
   syncCliHeight();
   setTimeout(syncCliHeight, 400);
 
