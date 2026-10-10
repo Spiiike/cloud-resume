@@ -1,27 +1,1781 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>glasscliff.online</title>
-</head>
-<body>
-  <h1>Antalon Jackson Jr</h1>
-  <p>Visitors: <span id="count">…</span></p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>antalon.jackson — Systems Administrator // terminal:2.0</title><meta name="description" content="Interactive terminal-style resume of Antalon Jackson Jr, Systems Administrator specialising in identity, endpoint management and cloud infrastructure. Type `help` in the command bar to navigate.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%230D0D0D'/%3E%3Ctext%20x='4'%20y='23'%20font-family='monospace'%20font-size='17'%20fill='%2300FF66'%3E%3E_%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/jetbrains-mono/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/800.css">
 
-  <script>
-    fetch('/api/counter', { method: 'POST' })
-      .then(function (r) {
-        if (!r.ok) { throw new Error('HTTP ' + r.status); }
-        return r.json();
-      })
-      .then(function (d) {
-        document.getElementById('count').textContent = d.count;
-      })
-      .catch(function (e) {
-        document.getElementById('count').textContent = '—';
-        console.error('counter failed', e);
+<style>
+/* ============================================================
+   TERMINAL 2.0 — TERMINAL RESUME
+   tokens · base · layout · components · sections · responsive
+   ============================================================ */
+
+/* ---------- 1. TOKENS ---------- */
+:root{
+  --mono:'JetBrains Mono Variable','JetBrains Mono','Fira Code',ui-monospace,SFMono-Regular,Menlo,Consolas,'Courier New',monospace;
+  --maxw:1220px;
+  --cli-h:64px;
+  --bw:2px;            /* border width */
+  --sh:6px;            /* hard offset shadow */
+  --sp:clamp(16px,4vw,28px);
+}
+html[data-theme="dark"]{
+  --bg:#0D0D0D; --bg-alt:#141614; --panel:#101210; --panel-2:#191C19;
+  --edge:#DCFFEA; --edge-2:#2B312B;
+  --fg:#E7F5EA; --dim:#8A9C8E;
+  --acc:#00FF66; --acc-deep:#00B34A; --orange:#FF5500; --yellow:#FFD400; --cyan:#22E0FF; --red:#FF3B3B;
+  --grid:rgba(255,255,255,.045);
+  --px-skin:#7CFFB2; --px-dark:#062B18;
+  --sel-bg:#00FF66; --sel-fg:#0D0D0D;
+}
+html[data-theme="light"]{
+  --bg:#F4F4F0; --bg-alt:#FFFFFF; --panel:#FFFFFF; --panel-2:#EDEDE6;
+  --edge:#0D0D0D; --edge-2:#CFCFC4;
+  --fg:#0D0D0D; --dim:#5B5B52;
+  --acc:#00873A; --acc-deep:#00682C; --orange:#D94100; --yellow:#9A7400; --cyan:#00698F; --red:#C40000;
+  --grid:rgba(0,0,0,.055);
+  --px-skin:#2FD57C; --px-dark:#05331D;
+  --sel-bg:#00873A; --sel-fg:#FFFFFF;
+}
+
+/* ---------- 2. BASE ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--mono);
+  font-size:15px;
+  line-height:1.65;
+  color:var(--fg);
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(to right,var(--grid) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;
+  overflow-x:hidden;
+  font-variant-ligatures:none;
+}
+h1,h2,h3,h4{margin:0;line-height:1.1;font-weight:800;letter-spacing:-.01em}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+img{max-width:100%;display:block}
+button,input,textarea,select{font:inherit;color:inherit}
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--bg-alt);border-left:2px solid var(--edge-2)}
+::-webkit-scrollbar-thumb{background:var(--acc-deep);border:2px solid var(--bg-alt)}
+::-webkit-scrollbar-thumb:hover{background:var(--acc)}
+
+/* ---------- 3. UTILITIES ---------- */
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--sp)}
+.acc{color:var(--acc)} .org{color:var(--orange)} .dim{color:var(--dim)} .yel{color:var(--yellow)} .cyn{color:var(--cyan)} .err{color:var(--red)}
+.skip{position:absolute;left:-9999px;top:0;z-index:2000;background:var(--acc);color:#0D0D0D;padding:10px 16px;border:var(--bw) solid var(--edge);font-weight:800}
+.skip:focus{left:8px;top:8px}
+
+.card{
+  background:var(--panel);
+  border:var(--bw) solid var(--edge);
+  box-shadow:var(--sh) var(--sh) 0 var(--acc);
+  padding:18px;
+  transition:transform .12s ease-out,box-shadow .12s ease-out;
+}
+.card.org-sh{box-shadow:var(--sh) var(--sh) 0 var(--orange)}
+.card.flat{box-shadow:none}
+
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--bg-alt);border:var(--bw) solid var(--edge);
+  box-shadow:3px 3px 0 var(--acc);
+  padding:7px 12px;font-size:12.5px;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;color:var(--fg);text-align:left;
+  transition:transform .1s ease-out,box-shadow .1s ease-out,background .1s,color .1s;
+}
+.chip .d{color:var(--acc)}
+.chip:hover{background:var(--acc);color:#0D0D0D;transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--edge)}
+.chip:hover .d{color:#0D0D0D}
+.chip:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--acc)}
+.chip.o{box-shadow:3px 3px 0 var(--orange)}
+.chip.o:hover{background:var(--orange);color:#0D0D0D;box-shadow:5px 5px 0 var(--edge)}
+.chip.o .d{color:var(--orange)}
+.chip.on{background:var(--acc);color:#0D0D0D}
+.chip.on .d{color:#0D0D0D}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--acc);color:#0D0D0D;border:var(--bw) solid var(--edge);
+  box-shadow:4px 4px 0 var(--edge);
+  padding:10px 16px;font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;transition:transform .1s ease-out,box-shadow .1s ease-out,background .1s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--edge);text-decoration:none}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--edge)}
+.btn.o{background:var(--orange);color:#0D0D0D}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--edge);box-shadow:4px 4px 0 var(--acc)}
+.btn.ghost:hover{background:var(--acc);color:#0D0D0D}
+
+.tag{
+  display:inline-block;border:2px solid var(--edge-2);background:var(--panel-2);
+  padding:2px 8px;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--dim);
+}
+.tag.hi{border-color:var(--acc);color:var(--acc)}
+
+.caret{display:inline-block;width:.62em;height:1.05em;background:var(--acc);vertical-align:-.18em;margin-left:2px;animation:blink 1.05s steps(1) infinite}
+.caret.sm{height:1em;width:.55em}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+.reveal{opacity:0;transform:translateY(16px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .35s ease-out,transform .35s cubic-bezier(.2,.9,.2,1)}
+
+/* ---------- 4. SECTION HEADS ---------- */
+.section{padding:clamp(48px,7vw,86px) 0;scroll-margin-top:88px;position:relative}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+.sec-num{
+  border:var(--bw) solid var(--edge);background:var(--acc);color:#0D0D0D;
+  font-size:11px;font-weight:800;padding:3px 7px;letter-spacing:.08em;flex:none;
+}
+.sec-title{
+  font-size:clamp(1.35rem,4.2vw,2.1rem);text-transform:uppercase;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-title::before{content:'█';color:var(--acc);font-size:.62em;transform:translateY(-.1em)}
+.sec-rule{flex:1 1 60px;height:3px;background:repeating-linear-gradient(90deg,var(--edge-2) 0 9px,transparent 9px 18px);min-width:24px}
+.sec-cmd{font-size:12px;color:var(--dim);white-space:nowrap}
+.sec-cmd b{color:var(--acc);font-weight:700}
+
+/* ---------- 5. PROGRESS + SCANLINES ---------- */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acc);z-index:1400;transition:width .1s linear}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:1300;opacity:.42;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.22) 2px 3px)}
+html[data-theme="light"] .scan{opacity:.16;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.09) 2px 3px)}
+
+/* ---------- 6. CLI HEADER ---------- */
+.cli-wrap{position:sticky;top:0;z-index:1200}
+.cli{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg-alt);border-bottom:3px solid var(--edge);
+  padding:10px 14px;min-height:var(--cli-h);
+}
+.dots{display:flex;gap:5px;flex:none}
+.dots i{width:12px;height:12px;border:2px solid var(--edge);display:block}
+.dots i:nth-child(1){background:var(--orange)}
+.dots i:nth-child(2){background:var(--yellow)}
+.dots i:nth-child(3){background:var(--acc)}
+.cli-path{flex:none;font-size:12.5px;font-weight:700;white-space:nowrap}
+.cli-path .u{color:var(--acc)} .cli-path .p{color:var(--dim)}
+.cli-form{flex:1 1 auto;display:flex;align-items:center;gap:8px;min-width:0;
+  border:var(--bw) solid var(--edge);background:var(--bg);padding:6px 10px;box-shadow:3px 3px 0 var(--acc)}
+.cli-form:focus-within{box-shadow:3px 3px 0 var(--orange);border-color:var(--orange)}
+.cli-form .ps{color:var(--acc);font-weight:800;font-size:13px;white-space:nowrap}
+#cliInput{flex:1 1 auto;min-width:0;background:transparent;border:0;outline:0;font-size:13.5px;font-weight:700;padding:2px 0;caret-color:var(--acc)}
+#cliInput::placeholder{color:var(--dim);font-weight:400}
+.cli-acts{display:flex;gap:8px;flex:none}
+.ico{
+  width:36px;height:36px;display:grid;place-items:center;cursor:pointer;
+  border:var(--bw) solid var(--edge);background:var(--bg);box-shadow:3px 3px 0 var(--acc);
+  font-size:13px;font-weight:800;line-height:1;transition:transform .1s,box-shadow .1s,background .1s,color .1s;
+}
+.ico:hover{background:var(--acc);color:#0D0D0D;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--edge)}
+.ico:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--acc)}
+.ico.wide{width:auto;padding:0 10px;letter-spacing:.06em}
+.cli-meta{display:none;font-size:11px;color:var(--dim);white-space:nowrap;flex:none}
+.cli-meta b{color:var(--acc);font-weight:700}
+
+/* output panel */
+.term-out{
+  position:absolute;top:100%;left:0;right:0;z-index:1190;
+  background:var(--bg-alt);border-bottom:3px solid var(--acc);
+  max-height:min(52vh,440px);display:flex;flex-direction:column;
+  opacity:0;transform:translateY(-10px);pointer-events:none;
+  transition:opacity .16s ease-out,transform .16s ease-out;
+  box-shadow:0 12px 0 rgba(0,0,0,.25);
+}
+.term-out.open{opacity:1;transform:none;pointer-events:auto}
+.to-bar{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:2px solid var(--edge-2);background:var(--panel-2);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+.to-bar .sp{flex:1}
+.to-btn{background:transparent;border:2px solid var(--edge);padding:2px 8px;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.06em}
+.to-btn:hover{background:var(--orange);color:#0D0D0D;border-color:var(--orange)}
+#logBody{overflow-y:auto;padding:12px 14px 16px;font-size:13px;line-height:1.62}
+.ln{white-space:pre-wrap;word-break:break-word;padding:1px 0}
+.ln .p1{color:var(--acc);font-weight:800}
+.ln .p2{color:var(--fg);font-weight:800}
+.ln .p3{color:var(--yellow);font-weight:700}
+.ln.ok{color:var(--acc)} .ln.err{color:var(--red)} .ln.warn{color:var(--orange)}
+.ln.mut{color:var(--dim)} .ln.hi{color:var(--cyan)} .ln.big{font-weight:800;letter-spacing:.04em}
+.ln.box{color:var(--acc)}
+
+/* ---------- 7. HERO ---------- */
+.hero{display:grid;grid-template-columns:1.35fr .85fr;gap:clamp(18px,3vw,34px);padding-top:clamp(30px,5vw,54px);padding-bottom:clamp(30px,5vw,50px);align-items:start}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:2px solid var(--edge-2);padding:4px 9px;background:var(--panel)}
+.kicker .led{width:9px;height:9px;background:var(--acc);display:block;animation:blink 1.6s steps(1) infinite}
+.hero-cmd{margin:16px 0 6px;font-size:clamp(12px,2.4vw,15px);font-weight:700;min-height:1.7em}
+.hero-cmd .u{color:var(--acc)} .hero-cmd .sep{color:var(--fg)} .hero-cmd .dir{color:var(--cyan)} .hero-cmd .dollar{color:var(--yellow)}
+h1.hero-name{
+  font-size:clamp(2.6rem,10.5vw,6rem);line-height:.92;text-transform:uppercase;letter-spacing:-.035em;
+  text-shadow:5px 5px 0 var(--acc);margin:6px 0 10px;
+}
+h1.hero-name span{display:block}
+h1.hero-name .l2{text-shadow:5px 5px 0 var(--orange);color:var(--fg)}
+.hero-role{font-size:clamp(.86rem,2.5vw,1.05rem);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--acc);min-height:1.6em}
+.hero-role::before{content:'> ';color:var(--orange)}
+.hero-bio{margin-top:14px;max-width:58ch;color:var(--fg);font-size:14.5px}
+.hero-bio b{color:var(--acc);font-weight:700;background:var(--panel);padding:0 3px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:24px}
+.stat{border:var(--bw) solid var(--edge);background:var(--panel);padding:10px;box-shadow:4px 4px 0 var(--edge-2)}
+.stat b{display:block;font-size:clamp(1.05rem,3vw,1.6rem);font-weight:800;color:var(--acc);line-height:1.1}
+.stat span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.stat:nth-child(2) b{color:var(--orange)} .stat:nth-child(4) b{color:var(--yellow)}
+
+/* avatar / system card */
+.side{display:flex;flex-direction:column;gap:14px}
+.win-bar{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:var(--bw) solid var(--edge);background:var(--panel-2);font-size:11.5px;letter-spacing:.05em;color:var(--dim);white-space:nowrap;overflow:hidden}
+.win-bar b{color:var(--fg);font-weight:700}
+.win-bar .sp{flex:1}
+.avatar{position:relative;background:var(--bg);border-bottom:var(--bw) solid var(--edge);overflow:hidden;display:grid;place-items:center;padding:14px}
+.avatar svg{width:100%;max-width:230px;height:auto;image-rendering:pixelated}
+.avatar::after{content:'';position:absolute;left:0;right:0;height:34%;top:-40%;
+  background:repeating-linear-gradient(to bottom,rgba(0,255,102,.10) 0 2px,transparent 2px 5px);
+  animation:sweep 5.5s linear infinite;pointer-events:none}
+@keyframes sweep{to{top:110%}}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px;font-size:12.5px}
+.kv dt{color:var(--dim);white-space:nowrap}
+.kv dd{margin:0;color:var(--fg);font-weight:700;text-align:right}
+.kv dd.g{color:var(--acc)}
+.pulse{display:inline-block;width:8px;height:8px;background:var(--acc);margin-right:6px;animation:blink 1.2s steps(1) infinite}
+
+/* ---------- 8. LS LISTING ---------- */
+.ls li{display:grid;grid-template-columns:104px 52px 44px 62px 104px 1fr auto;gap:10px;align-items:center;
+  padding:7px 10px;border-bottom:1px dashed var(--edge-2);font-size:13px;transition:background .1s}
+.ls li:last-child{border-bottom:0}
+.ls li:hover{background:var(--panel-2)}
+.ls .perm{color:var(--dim)}
+.ls .own{color:var(--cyan)} .ls .grp{color:var(--dim)} .ls .sz{color:var(--yellow);text-align:right}
+.ls .dt{color:var(--dim);font-size:12px}
+.ls .fn{font-weight:700;color:var(--fg)}
+.ls .fn.dir{color:var(--acc)}
+.ls .go{color:var(--dim);font-size:12px}
+.ls li:hover .go{color:var(--orange)}
+.ls a:hover{text-decoration:none}
+.ls-total{padding:8px 10px;font-size:12px;color:var(--dim);border-bottom:2px solid var(--edge-2)}
+
+/* ---------- 9. ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:18px;align-items:start}
+.term-body{padding:16px 18px;font-size:14px}
+.term-body p{margin-bottom:12px}
+.term-body p:last-child{margin-bottom:0}
+.term-body .ln-pref{color:var(--acc);font-weight:700}
+.facts{border-top:2px solid var(--edge-2);margin-top:16px;padding-top:14px;display:grid;gap:8px}
+.fact{display:grid;grid-template-columns:132px 1fr;gap:10px;font-size:12.5px}
+.fact span:first-child{color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:11px;padding-top:2px}
+.fact span:last-child{font-weight:700}
+.neo-list{display:grid;gap:10px}
+.neo-list li{display:flex;gap:10px;font-size:13px;align-items:flex-start}
+.neo-list li::before{content:'▸';color:var(--orange);font-weight:800;flex:none}
+
+/* ---------- 10. SKILLS ---------- */
+.sk-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.sk-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.sk-group{border:var(--bw) solid var(--edge);background:var(--panel);box-shadow:var(--sh) var(--sh) 0 var(--edge-2);transition:box-shadow .15s,transform .15s,opacity .2s}
+.sk-group:hover{box-shadow:var(--sh) var(--sh) 0 var(--acc);transform:translate(-2px,-2px)}
+.sk-group.hide{display:none}
+.sk-group h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;padding:9px 12px;background:var(--panel-2);border-bottom:var(--bw) solid var(--edge);display:flex;align-items:center;gap:8px}
+.sk-group h3 i{width:9px;height:9px;background:var(--acc);display:block;flex:none}
+.sk-group h3 .sp{flex:1}
+.sk-group h3 em{font-style:normal;color:var(--dim);font-size:11px;letter-spacing:.04em}
+.sk-list{padding:12px}
+.skill{padding:6px 0;border-bottom:1px dashed var(--edge-2)}
+.skill:last-child{border-bottom:0}
+.sk-top{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;margin-bottom:3px}
+.sk-top b{font-weight:700}
+.sk-pct{color:var(--acc);font-weight:800}
+.sk-bar{font-size:12.5px;letter-spacing:.06em;color:var(--acc-deep);line-height:1.2;word-break:keep-all}
+html[data-theme="dark"] .sk-bar{color:#0a5c2c}
+.skill.max .sk-bar{color:var(--orange)}
+.skill.max .sk-pct{color:var(--orange)}
+
+/* ---------- 11. EXPERIENCE ---------- */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:3px;
+  background:repeating-linear-gradient(to bottom,var(--acc) 0 10px,transparent 10px 18px)}
+.job{position:relative;margin-bottom:20px;box-shadow:var(--sh) var(--sh) 0 var(--edge-2)}
+.job:hover{box-shadow:var(--sh) var(--sh) 0 var(--acc)}
+.job::before{content:'';position:absolute;left:-26px;top:22px;width:15px;height:15px;background:var(--bg);border:3px solid var(--acc)}
+.job:last-child{margin-bottom:0}
+.job-top{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+.job h3{font-size:clamp(1rem,2.6vw,1.25rem);text-transform:uppercase;letter-spacing:-.01em}
+.job .co{color:var(--acc);font-weight:700;font-size:13.5px;margin-top:4px}
+.job .co .loc{color:var(--dim);font-weight:400}
+.badge{border:2px solid var(--orange);color:var(--orange);font-size:10.5px;font-weight:800;letter-spacing:.09em;padding:3px 8px;white-space:nowrap;background:var(--bg)}
+.badge.now{border-color:var(--acc);color:var(--acc)}
+.job ul{margin-top:12px;display:grid;gap:7px}
+.job ul li{font-size:13.5px;padding-left:18px;position:relative}
+.job ul li::before{content:'>';position:absolute;left:0;color:var(--acc);font-weight:800}
+.job-foot{margin-top:14px;padding-top:11px;border-top:2px dashed var(--edge-2);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.commit{font-size:11px;color:var(--dim);white-space:nowrap}
+.commit b{color:var(--acc)} .commit i{color:var(--red);font-style:normal}
+
+/* ---------- 12. PROJECTS ---------- */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
+.proj{display:flex;flex-direction:column;padding:0;overflow:hidden;box-shadow:var(--sh) var(--sh) 0 var(--edge-2)}
+.proj:hover{box-shadow:var(--sh) var(--sh) 0 var(--orange);transform:translate(-2px,-2px)}
+.proj .win-bar b{color:var(--acc)}
+.proj-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.proj-cmd{font-size:12.5px;color:var(--dim)}
+.proj-cmd b{color:var(--yellow);font-weight:700}
+.proj h3{font-size:1.1rem;text-transform:uppercase;letter-spacing:-.01em}
+.proj h3 .ver{color:var(--dim);font-size:.72em;font-weight:400}
+.proj p{font-size:13px;color:var(--fg)}
+.proj-out{border-left:3px solid var(--acc);padding:6px 10px;background:var(--bg);font-size:12px;color:var(--acc);white-space:pre-wrap}
+.proj-foot{margin-top:auto;padding-top:12px;border-top:2px dashed var(--edge-2);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.stars{font-size:11.5px;color:var(--dim);white-space:nowrap}
+.stars b{color:var(--yellow)}
+.mini{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--edge);background:var(--bg);padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:transform .1s,box-shadow .1s,background .1s,color .1s}
+.mini:hover{background:var(--acc);color:#0D0D0D;transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--edge);text-decoration:none}
+.proj.flash,.section.flash .card,.card.flash{animation:flashk 1.1s steps(2) 2}
+@keyframes flashk{0%,100%{box-shadow:var(--sh) var(--sh) 0 var(--edge-2)}50%{box-shadow:10px 10px 0 var(--orange);border-color:var(--orange)}}
+
+/* ---------- 13. EDUCATION ---------- */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.edu-item{padding:14px 0;border-bottom:2px dashed var(--edge-2)}
+.edu-item:last-child{border-bottom:0;padding-bottom:0}
+.edu-item:first-child{padding-top:0}
+.edu-item h3{font-size:1rem;text-transform:uppercase}
+.edu-item .meta{font-size:12px;color:var(--dim);margin-top:3px}
+.edu-item .meta b{color:var(--acc)}
+.cert{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--edge-2);font-size:12.5px}
+.cert:last-child{border-bottom:0}
+.cert .yr{border:2px solid var(--acc);color:var(--acc);font-size:10.5px;font-weight:800;padding:1px 6px;flex:none}
+
+/* ---------- 14. CONTACT ---------- */
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+.mail-form{padding:16px;display:grid;gap:12px}
+.field{display:grid;gap:5px}
+.field label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.field label b{color:var(--acc)}
+.field input,.field textarea{
+  background:var(--bg);border:var(--bw) solid var(--edge);padding:9px 11px;font-size:13.5px;outline:0;resize:vertical;
+  box-shadow:inset 3px 3px 0 var(--edge-2);
+}
+.field input:focus,.field textarea:focus{border-color:var(--acc);box-shadow:3px 3px 0 var(--acc)}
+.field .bad{border-color:var(--red)!important;box-shadow:3px 3px 0 var(--red)!important}
+.mail-out{font-size:12.5px;min-height:1.4em;display:grid;gap:2px}
+.mail-out div{white-space:pre-wrap}
+.remote{display:grid;gap:0;padding:14px}
+.remote .r{display:grid;grid-template-columns:80px 1fr auto;gap:10px;padding:8px 0;border-bottom:1px dashed var(--edge-2);font-size:12.5px;align-items:center}
+.remote .r:last-child{border-bottom:0}
+.remote .r .n{color:var(--acc);font-weight:800}
+.remote .r .u{word-break:break-all}
+.remote .r .m{color:var(--dim);font-size:11px}
+.bigmail{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px;border:var(--bw) solid var(--edge);background:var(--acc);color:#0D0D0D;box-shadow:var(--sh) var(--sh) 0 var(--edge);margin-bottom:16px}
+.bigmail .m{font-size:clamp(.9rem,3vw,1.25rem);font-weight:800;letter-spacing:-.01em;word-break:break-all}
+.bigmail .b{border:2px solid #0D0D0D;background:#0D0D0D;color:var(--acc);padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;letter-spacing:.05em}
+.bigmail .b:hover{background:var(--orange);color:#0D0D0D;border-color:#0D0D0D}
+
+/* ---------- 15. FOOTER ---------- */
+.foot{border-top:3px solid var(--edge);background:var(--bg-alt);margin-top:40px}
+.ticker{overflow:hidden;border-bottom:2px solid var(--edge-2);background:var(--panel)}
+.ticker-track{display:flex;width:max-content;animation:tick 26s linear infinite}
+.ticker-track span{padding:8px 0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;font-weight:700}
+.ticker-track span i{color:var(--orange);font-style:normal;padding:0 14px}
+@keyframes tick{to{transform:translateX(-50%)}}
+.foot-in{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 0;font-size:11.5px;color:var(--dim)}
+.foot-in b{color:var(--acc)}
+.foot-acts{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- 16. TO TOP ---------- */
+#toTop{position:fixed;right:16px;bottom:16px;z-index:1100;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .18s,transform .18s}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- 17. RESPONSIVE ---------- */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr}
+  .side{flex-direction:row;flex-wrap:wrap}
+  .side>*{flex:1 1 300px}
+  .about-grid,.edu-grid,.contact-grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .cli-path,.cli-meta{display:none}
+  .ls li{grid-template-columns:56px 1fr auto;gap:8px}
+  .ls .perm,.ls .own,.ls .grp,.ls .dt{display:none}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  body{font-size:14px}
+  .cli{padding:8px 10px;gap:8px}
+  .ico.wide{display:none}
+  .card{padding:14px}
+  .term-body{padding:13px}
+  .timeline{padding-left:20px}
+  .job::before{left:-20px;width:12px;height:12px}
+  h1.hero-name{text-shadow:3px 3px 0 var(--acc)}
+  h1.hero-name .l2{text-shadow:3px 3px 0 var(--orange)}
+  .fact{grid-template-columns:1fr;gap:2px}
+  .remote .r{grid-template-columns:64px 1fr;}
+  .remote .r .m{grid-column:2}
+  .sec-cmd{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+@media print{
+  .cli-wrap,.term-out,.scan,#toTop,#prog,.ticker,.chips,.foot-acts,.mail-form{display:none!important}
+  body{background:#fff;color:#000}
+  .card,.job,.proj,.sk-group{box-shadow:none!important;border-color:#000!important;break-inside:avoid}
+  .section{padding:14px 0}
+  a{color:#000;text-decoration:underline}
+}
+
+/* Resume content and resilient reading/printing. */
+.hero-stats{grid-template-columns:repeat(5,minmax(0,1fr))}
+.stat:nth-child(5) b{color:var(--cyan)}
+.stat{min-width:0}.stat span{overflow-wrap:anywhere}
+.name-suffix{font-size:.33em;letter-spacing:0;vertical-align:baseline}
+h1.hero-name{font-size:clamp(52px,6.2vw,82px)}
+.skill{padding:12px 0}.skill .sk-top{margin:0}
+.remote .u,.kv dd{overflow-wrap:anywhere;min-width:0}
+.ls li{grid-template-columns:100px 70px 35px 45px 90px minmax(0,1fr) 50px}
+@media(max-width:860px){.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-stats .stat:last-child{grid-column:1/-1}.ls li{grid-template-columns:1fr auto}h1.hero-name{font-size:clamp(40px,10vw,82px)}.ls .sz{display:none}}
+@media print{
+ :root{--bg:#fff;--bg-alt:#fff;--panel:#fff;--panel-2:#fff;--fg:#000;--dim:#333;--acc:#000;--orange:#000;--yellow:#000;--cyan:#000;--edge:#000;--edge-2:#aaa}
+ .reveal{opacity:1!important;transform:none!important}
+ .hero{min-height:0!important;padding:16px 0}h1.hero-name{font-size:42px}
+ .hero-cmd,.hero-role,.kicker,.side,#index,.sec-cmd,.sec-num,.sec-rule,.proj-cmd,.proj-foot,.win-bar,.btn,.bigmail button,.stat:last-child{display:none!important}
+ .hero-stats{grid-template-columns:repeat(4,1fr)}
+ .hero,.about-grid,.edu-grid,.contact-grid{display:block}
+ .sk-groups,.proj-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .sk-group.hide{display:block!important}.section{padding:12px 0}.sec-head{margin-bottom:12px}
+ .foot{border:0}.foot-in{padding:12px 0}a{overflow-wrap:anywhere}
+}
+</style>
+<meta name="author" content="Antalon Jackson Jr"><noscript><style>.reveal{opacity:1;transform:none}.hero-role,.chips,.cli-wrap{display:none}</style></noscript>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to resume content</a>
+<div id="prog" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+
+<!-- ==================== CLI HEADER ==================== -->
+<div class="cli-wrap">
+  <header class="cli" role="banner">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="cli-path"><span class="u">guest@terminal</span><span class="p">:~/resume</span></div>
+
+    <form class="cli-form" id="cliForm" autocomplete="off" role="search" aria-label="Terminal command bar">
+      <label for="cliInput" class="ps">$</label>
+      <input id="cliInput" type="text" spellcheck="false" aria-describedby="cliHint" placeholder="type 'help' and press ⏎ — try: cat about.txt">
+      <span id="cliHint" class="dim" style="font-size:11px;white-space:nowrap">⌘/ctrl+K</span>
+    </form>
+
+    <div class="cli-meta" aria-hidden="true">session <b id="uptime">00:00:00</b></div>
+
+    <div class="cli-acts">
+      <button class="ico" id="themeBtn" type="button" title="Toggle colour scheme (cmd: theme)" aria-label="Toggle colour scheme">◐</button>
+      <button class="ico wide" id="helpBtn" type="button" title="Show all commands" aria-label="Show help">HELP</button>
+    </div>
+  </header>
+
+  <div class="term-out" id="termOut" aria-hidden="true">
+    <div class="to-bar">
+      <span>▌output — <b id="toPath">~/resume</b></span>
+      <span class="sp"></span>
+      <button class="to-btn" id="clearBtn" type="button">clear</button>
+      <button class="to-btn" id="closeBtn" type="button" aria-label="Close output panel">✕ esc</button>
+    </div>
+    <div id="logBody" role="log" aria-live="polite" aria-relevant="additions"></div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ==================== HERO ==================== -->
+  <section class="wrap hero" id="home" aria-labelledby="heroName">
+    <div class="hero-main">
+      <p class="kicker">terminal:2.0 — Antalon Jackson Jr · systems administrator</p>
+
+      <p class="hero-cmd" aria-hidden="true">
+        <span class="u">guest@terminal</span><span class="sep">:</span><span class="dir">~/resume</span><span class="sep">$</span>
+        <span class="dollar"> </span><span id="heroCmd"></span><span class="caret" id="heroCaret"></span>
+      </p>
+
+      <h1 class="hero-name" id="heroName" aria-label="Antalon Jackson Jr"><span>Antalon</span><span class="l2">Jackson <small class="name-suffix">Jr.</small></span></h1>
+
+<p class="hero-role" aria-live="off"><span id="roleType">Systems Administrator · Identity · Endpoint · Cloud</span><span class="caret sm" aria-hidden="true"></span></p>
+
+<p class="hero-bio">I own identity and endpoint management for approximately 750 devices and share responsibility for a 90-server hybrid estate. Entra ID SSO across 40+ applications, PowerShell and Logic Apps automation, and nine years in enterprise IT. Automate it, then document it.</p>
+<div class="chips" role="group" aria-label="Quick commands">
+        <button class="chip" type="button" data-cmd="whoami"><span class="d">$</span> whoami</button>
+        <button class="chip" type="button" data-cmd="cat about.txt"><span class="d">$</span> cat about.txt</button>
+        <button class="chip" type="button" data-cmd="run skills.sh"><span class="d">$</span> run skills.sh</button>
+        <button class="chip" type="button" data-cmd="cd experience"><span class="d">$</span> cd experience</button>
+        <button class="chip" type="button" data-cmd="ls projects/"><span class="d">$</span> ls projects/</button>
+        <button class="chip" type="button" data-cmd="cat education.log"><span class="d">$</span> cat education.log</button>
+        <button class="chip o" type="button" data-cmd="sudo hire-me"><span class="d">#</span> sudo hire-me</button>
+        <button class="chip" type="button" data-cmd="help"><span class="d">$</span> help</button>
+      </div>
+
+      <div class="hero-stats">
+  <div class="stat"><b data-count="9" data-suffix="+">9+</b><span>years in IT</span></div>
+  <div class="stat"><b data-count="750" data-suffix="">750</b><span>current endpoints</span></div>
+  <div class="stat"><b data-count="40" data-suffix="+">40+</b><span>apps on SSO</span></div>
+  <div class="stat"><b data-count="1300" data-suffix="+">1300+</b><span>MDM devices at Tesla</span></div>
+  <div class="stat"><b id="visitorCount" data-suffix="">—</b><span>site visitors</span></div>
+</div>
+</div>
+
+    <aside class="side" aria-label="Operator profile">
+      <div class="card flat" style="padding:0;overflow:hidden">
+        <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>operator.id</b><span class="sp"></span><span>— 80×24</span></div>
+        <div class="avatar" id="avatar" role="img" aria-label="Decorative terminal avatar"></div>
+        <dl class="kv">
+  <dt>handle</dt><dd class="g">@antalonj</dd>
+  <dt>role</dt><dd>Systems Administrator</dd>
+  <dt>base</dt><dd>Austin, TX · US Central</dd>
+  <dt>stack</dt><dd>Entra · Intune · Azure · PowerShell</dd>
+  <dt>status</dt><dd class="g"><span class="pulse" aria-hidden="true"></span>open to work</dd>
+  </dl>
+</div>
+
+      <div class="card org-sh">
+  <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">// current mission</div>
+  <p style="font-size:13.5px">Owning identity and endpoint management at Electric Power Engineers — Entra ID SSO across 40+ applications, production SCIM provisioning, Intune and Jamf for ~750 devices, and automation that saves 15–20 hours a week.</p>
+  <div class="tags" style="margin-top:12px">
+    <span class="tag hi">Entra ID</span><span class="tag hi">Intune</span><span class="tag">PowerShell</span><span class="tag">Azure Arc</span>
+  </div>
+</div>
+</aside>
+  </section>
+
+  <!-- ==================== LS LISTING ==================== -->
+  <section class="section wrap" id="index" aria-label="Resume file index">
+    <div class="sec-head reveal">
+      <span class="sec-num">00</span>
+      <h2 class="sec-title" data-type="FILE_INDEX">FILE_INDEX</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>ls -la</b></span>
+    </div>
+
+    <div class="card flat reveal" style="padding:0;overflow:hidden">
+      <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>guest@terminal: ~/resume</b><span class="sp"></span><span>ls -la</span></div>
+      <div class="ls-total">7 entries — select a section or print a copy</div>
+      <ul class="ls">
+        <li data-cmd="cat about.txt">
+          <span class="perm">-rw-r--r--</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn" href="#about">about.txt</a><span class="go">cat ↵</span>
+        </li>
+        <li data-cmd="run skills.sh">
+          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn dir" href="#skills">skills_matrix/</a><span class="go">run ↵</span>
+        </li>
+        <li data-cmd="cd experience">
+          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn dir" href="#experience">experience/</a><span class="go">cd ↵</span>
+        </li>
+        <li data-cmd="ls projects/">
+          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn dir" href="#projects">projects/</a><span class="go">ls ↵</span>
+        </li>
+        <li data-cmd="cat education.log">
+          <span class="perm">-rw-r--r--</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn" href="#education">education.log</a><span class="go">cat ↵</span>
+        </li>
+        <li data-cmd="print resume.pdf">
+          <span class="perm">-rwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn" href="#contact">print / save PDF</a><span class="go">cat ↵</span>
+        </li>
+        <li data-cmd="cd contact">
+          <span class="perm">drwxr-xr-x</span><span class="own">antalon</span><span class="grp">it</span><span class="sz">—</span><span class="dt">—</span>
+          <a class="fn dir" href="#contact">contact/</a><span class="go">cd ↵</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="section wrap" id="about" aria-labelledby="aboutTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title" id="aboutTitle" data-type="ABOUT.TXT">ABOUT.TXT</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>cat about.txt</b></span>
+    </div>
+
+    <div class="about-grid">
+      <article class="card reveal" style="padding:0;overflow:hidden">
+        <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>about.txt</b><span class="sp"></span><span>utf-8 · LF</span></div>
+        <div class="term-body"><p><span class="ln-pref">01</span>  Systems administrator with nine years across enterprise technology, aerospace, automotive manufacturing and engineering consulting. I work the identity-to-endpoint seam: who gets access, on what device, under which policy — and how all three get provisioned without anyone filing a ticket.</p>
+<p>02  At Electric Power Engineers I was promoted from Help Desk within a month. I own Intune and Jamf for roughly 750 endpoints, administer M365 and hybrid AD/Entra ID, and share responsibility for approximately 90 servers across five sites. I led SSO integrations across 40+ applications, production SCIM provisioning, and phishing-resistant MFA initiatives.</p>
+<p><span class="ln-pref">03</span>  I measure work in hours given back. Joiner-mover-leaver automation: 15–20 hours a week. Technician workstation build: a full day down to twenty minutes. Those numbers came from PowerShell, Microsoft Graph, Logic Apps and Azure Functions, not from working later.</p>
+<p><span class="ln-pref">04</span>  Off-clock: building this site, an Azure landing zone in Terraform, and an Okta lifecycle lab — because the fastest way to understand an identity platform is to break one you own.</p>
+
+<div class="facts">
+  <div class="fact"><span>location</span><span>Austin, Texas · on-site, hybrid or remote</span></div>
+  <div class="fact"><span>availability</span><span class="acc">Open to systems / identity / cloud roles</span></div>
+  <div class="fact"><span>focus</span><span>Identity &amp; access · endpoint management · cloud infrastructure</span></div>
+  <div class="fact"><span>scale</span><span>~750 endpoints · 90 servers · 40+ SSO integrations</span></div>
+  <div class="fact"><span>compliance</span><span>SOC 2 · NIST · ISO · ITAR environments</span></div>
+</div>
+</div>
+      </article>
+
+      <div style="display:grid;gap:18px">
+        <div class="card org-sh reveal">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px">// what i actually do</div>
+          <ul class="neo-list">
+  <li>Design and run Entra ID SSO, SCIM provisioning, Conditional Access and PIM</li>
+  <li>Own Intune and Jamf administration for ~750 current endpoints; previously administered Jamf and Workspace ONE at 1,300+ device scale</li>
+  <li>Automate joiner-mover-leaver with PowerShell, Graph, Logic Apps and Workato</li>
+  <li>Operate hybrid infrastructure across Azure Arc, AWS and on-prem Hyper-V</li>
+  <li>Evidence SOC 2, NIST and ISO controls through access reviews and documentation</li>
+</ul>
+</div>
+
+        <div class="card reveal">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px">// operating principles</div>
+          <ul class="neo-list">
+            <li>Boring tech wins; exciting tech needs a business case</li>
+            <li>Observability first — you cannot fix what you cannot see</li>
+            <li>Smallest possible diff that solves the real problem</li>
+            <li>Write it down: docs are a feature, not a chore</li>
+          </ul>
+          <button class="chip" type="button" data-cmd="neofetch" style="margin-top:14px"><span class="d">$</span> neofetch</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section class="section wrap" id="skills" aria-labelledby="skillsTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title" id="skillsTitle" data-type="SKILLS_MATRIX">SKILLS_MATRIX</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>run skills.sh</b></span>
+    </div>
+
+    <div class="sk-filters reveal" role="group" aria-label="Filter skills"><button class="chip on" type="button" data-filter="all"><span class="d">$</span> skills.sh --filter=all</button>
+<button class="chip" type="button" data-filter="iam"><span class="d">--</span>identity</button>
+<button class="chip" type="button" data-filter="endpoint"><span class="d">--</span>endpoint</button>
+<button class="chip" type="button" data-filter="cloud"><span class="d">--</span>cloud &amp; infra</button>
+<button class="chip" type="button" data-filter="auto"><span class="d">--</span>automation</button>
+<button class="chip" type="button" data-filter="sec"><span class="d">--</span>security</button>
+<button class="chip" type="button" data-filter="ops"><span class="d">--</span>operations</button></div>
+
+    <div class="sk-groups" id="skGroups"><div class="sk-group reveal" data-cat="iam">
+  <h3><i aria-hidden="true"></i> identity &amp; access <span class="sp"></span><em>6 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>Microsoft Entra ID</b></div></div>
+    <div class="skill"><div class="sk-top"><b>SSO (SAML / OIDC)</b></div></div>
+    <div class="skill"><div class="sk-top"><b>SCIM provisioning</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Conditional Access</b></div></div>
+    <div class="skill"><div class="sk-top"><b>PIM / privileged access</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Hybrid AD / Entra Connect</b></div></div>
+  </div>
+</div>
+
+<div class="sk-group reveal" data-cat="endpoint">
+  <h3><i aria-hidden="true"></i> endpoint management <span class="sp"></span><em>6 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>Microsoft Intune</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Jamf Pro (macOS)</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Windows Autopilot</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Workspace ONE</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Apple Business Manager</b></div></div>
+    <div class="skill"><div class="sk-top"><b>SCCM / Configuration Mgr</b></div></div>
+  </div>
+</div>
+
+<div class="sk-group reveal" data-cat="cloud">
+  <h3><i aria-hidden="true"></i> cloud &amp; infrastructure <span class="sp"></span><em>6 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>Microsoft 365 administration</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Azure (Arc, Functions, Policy)</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Terraform / IaC</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Hyper-V / virtualisation</b></div></div>
+    <div class="skill"><div class="sk-top"><b>AWS (EC2, VPN)</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Linux / RHEL</b></div></div>
+  </div>
+</div>
+
+<div class="sk-group reveal" data-cat="auto">
+  <h3><i aria-hidden="true"></i> automation <span class="sp"></span><em>5 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>PowerShell</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Microsoft Graph API</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Azure Logic Apps</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Python</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Workato / Power Automate</b></div></div>
+  </div>
+</div>
+
+<div class="sk-group reveal" data-cat="sec">
+  <h3><i aria-hidden="true"></i> security &amp; compliance <span class="sp"></span><em>5 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>Defender for Endpoint</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Phishing-resistant MFA</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Security baselines / ASR</b></div></div>
+    <div class="skill"><div class="sk-top"><b>SOC 2 · NIST · ISO · ITAR</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Vulnerability remediation</b></div></div>
+  </div>
+</div>
+
+<div class="sk-group reveal" data-cat="ops">
+  <h3><i aria-hidden="true"></i> ways of working <span class="sp"></span><em>4 entries</em></h3>
+  <div class="sk-list">
+    <div class="skill"><div class="sk-top"><b>Runbooks &amp; documentation</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Incident response</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Mentoring technicians</b></div></div>
+    <div class="skill"><div class="sk-top"><b>Cross-team rollouts</b></div></div>
+  </div>
+</div>
+</div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section class="section wrap" id="experience" aria-labelledby="expTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title" id="expTitle" data-type="EXPERIENCE/">EXPERIENCE/</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>git log --oneline --author=antalon</b></span>
+</div>
+
+    <ol class="timeline"><li class="job card reveal">
+  <div class="job-top">
+    <div>
+      <h3>System Administrator I</h3>
+      <p class="co">@ Electric Power Engineers <span class="loc">· Austin, TX · identity, endpoint &amp; cloud infrastructure</span></p>
+    </div>
+    <span class="badge now">FEB 2025 — PRESENT</span>
+  </div>
+  <ul>
+    <li>Promoted out of Help Desk within the first month; now the senior escalation point for identity, endpoint, infrastructure and SaaS integration across <b class="acc">90 servers</b> and ~750 endpoints.</li>
+    <li>Saved <b class="acc">15–20 hours of manual work weekly</b> by engineering end-to-end joiner-mover-leaver and HRIS-to-AD automation with Logic Apps, Azure Functions, Microsoft Graph and Workato.</li>
+    <li>Led Entra ID SSO integrations across 40+ SaaS applications and production SCIM provisioning for key platforms; implemented Conditional Access, privileged access controls, phishing-resistant MFA and Windows Hello for Business.</li>
+    <li>Cut technician workstation setup from a full day to <b class="acc">20 minutes</b> by building the Intune environment, implementing Windows Autopilot and standardising macOS management via Jamf Pro.</li>
+    <li>Centralised patching and policy across a 90-server hybrid estate with Azure Arc, Update Manager and Azure Policy; deployed infrastructure with ARM/Bicep and migrated to AD-integrated DNS.</li>
+    <li>Limited downtime during a firewall zero-day outage by leading incident response and executing an emergency company-wide VPN migration. Configured a firewall-based site-to-site VPN so AWS EC2 instances could reach on-premises license servers.</li>
+    <li>Supported SOC 2, NIST and ISO control requirements through access reviews, system documentation, change controls and security-policy implementation.</li>
+  </ul>
+  <div class="job-foot">
+    <div class="tags"><span class="tag hi">Entra ID</span><span class="tag hi">Intune</span><span class="tag">Jamf Pro</span><span class="tag">Azure Arc</span><span class="tag">Logic Apps</span><span class="tag">PowerShell</span><span class="tag">AWS</span></div>
+  </div>
+</li>
+
+<li class="job card reveal">
+  <div class="job-top">
+    <div>
+      <h3>Help Desk Analyst</h3>
+      <p class="co">@ SolarWinds <span class="loc">· Austin, TX · hybrid · global user base</span></p>
+    </div>
+    <span class="badge">JUN 2024 — DEC 2024</span>
+  </div>
+  <ul>
+    <li>Delivered Tier 1 and Tier 2 incident response for a global user base through the SolarWinds Service Desk, supporting daily IT operations and hardware lifecycles.</li>
+    <li>Accelerated a <b class="acc">Windows 11 migration with zero data loss</b> by engineering PowerShell scripts to automate Autopilot hardware hash imports and user profile backups.</li>
+  </ul>
+  <div class="job-foot">
+    <div class="tags"><span class="tag hi">PowerShell</span><span class="tag">Windows 11</span><span class="tag">Autopilot</span><span class="tag">Service Desk</span></div>
+  </div>
+</li>
+
+<li class="job card reveal">
+  <div class="job-top">
+    <div>
+      <h3>IT Services Technician II</h3>
+      <p class="co">@ SpaceX <span class="loc">· Austin, TX · on-site · ITAR-controlled M365 GCC</span></p>
+    </div>
+    <span class="badge">JUL 2023 — DEC 2023</span>
+  </div>
+  <ul>
+    <li>Primary on-site administrator for Intune, Jamf and Apple Business Manager, supporting production and engineering users in a strictly <b class="acc">ITAR-controlled Microsoft 365 GCC environment</b>.</li>
+    <li>Reduced technician ramp time and eliminated single-point dependencies by writing comprehensive infrastructure runbooks and coordinating complex rollouts with remote network and security teams.</li>
+  </ul>
+  <div class="job-foot">
+    <div class="tags"><span class="tag hi">M365 GCC</span><span class="tag">ITAR</span><span class="tag">Intune</span><span class="tag">Jamf</span><span class="tag">Apple Business Manager</span></div>
+  </div>
+</li>
+
+<li class="job card reveal">
+  <div class="job-top">
+    <div>
+      <h3>IT Manufacturing &amp; Desktop Support Technician</h3>
+      <p class="co">@ Tesla <span class="loc">· Buffalo, NY → Austin, TX · on-site · 24/7 manufacturing</span></p>
+    </div>
+    <span class="badge">MAR 2020 — JUL 2023</span>
+  </div>
+  <ul>
+    <li>Imaged and managed <b class="acc">1,200+ workstations</b> supporting round-the-clock manufacturing and corporate users.</li>
+    <li>Created configuration profiles and policy enforcement across <b class="acc">1,300+ devices</b> as the primary on-site MDM administrator for Jamf and Workspace ONE.</li>
+    <li>Eliminated manual ticketing bottlenecks by building Power Automate flows and PowerShell scripts that handled hardware orders and repetitive IT support tasks automatically.</li>
+  </ul>
+  <div class="job-foot">
+    <div class="tags"><span class="tag hi">Jamf</span><span class="tag hi">Workspace ONE</span><span class="tag">Power Automate</span><span class="tag">PowerShell</span><span class="tag">Imaging</span></div>
+  </div>
+</li>
+
+<li class="job card reveal">
+  <div class="job-top">
+    <div>
+      <h3>Service Desk Agent</h3>
+      <p class="co">@ IBM <span class="loc">· Buffalo, NY · on-site · large distributed user base</span></p>
+    </div>
+    <span class="badge">JAN 2017 — MAR 2020</span>
+  </div>
+  <ul>
+    <li>Resolved high-volume incidents through ServiceNow and managed endpoint configurations for a large distributed user base.</li>
+    <li>Maintained application performance across remote devices by executing targeted software deployments and troubleshooting via SCCM.</li>
+  </ul>
+  <div class="job-foot">
+    <div class="tags"><span class="tag">ServiceNow</span><span class="tag">SCCM</span><span class="tag">Endpoint config</span></div>
+  </div>
+</li>
+</ol>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section class="section wrap" id="projects" aria-labelledby="projTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title" id="projTitle" data-type="PROJECTS/">PROJECTS/</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>ls projects/</b></span>
+    </div>
+
+    <div class="proj-grid"><article class="proj card flat reveal" id="p-cloud-resume">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/cloud-resume</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <p class="proj-cmd">$ <b>terraform apply</b></p>
+    <h3>cloud-resume <span class="ver">this site</span></h3>
+    <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, every resource declared in Terraform, and GitHub Actions deploying on green tests with OIDC federation — no stored cloud credentials.</p>
+    <div class="tags"><span class="tag hi">Terraform</span><span class="tag hi">Azure</span><span class="tag">Python</span><span class="tag">Cosmos DB</span><span class="tag">GitHub Actions</span></div>
+    <div class="proj-foot">
+      <span style="display:flex;gap:6px;flex-wrap:wrap">
+        <a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">github ↗</a>
+        <button class="mini" type="button" data-cmd="open cloud-resume">inspect ⌁</button>
+      </span>
+    </div>
+  </div>
+</article>
+
+<article class="proj card flat reveal" id="p-azure-landing-zone">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/azure-landing-zone</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <p class="proj-cmd">$ <b>terraform plan</b></p>
+    <h3>azure-landing-zone</h3>
+    <p>Landing zone architecture built in Terraform: virtual machines, Entra ID groups and Azure Policy assignments, structured to demonstrate subscription governance and policy inheritance rather than one-off resource creation.</p>
+    <div class="tags"><span class="tag hi">Terraform</span><span class="tag">Azure Policy</span><span class="tag">Entra ID</span><span class="tag">Governance</span></div>
+    <div class="proj-foot">
+      <span style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="mini" type="button" data-cmd="open azure-landing-zone">inspect ⌁</button>
+      </span>
+    </div>
+  </div>
+</article>
+
+<article class="proj card flat reveal" id="p-okta-lifecycle-lab">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/okta-lifecycle-lab</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <p class="proj-cmd">$ <b>./simulate-joiner.sh</b></p>
+    <h3>okta-lifecycle-lab</h3>
+    <p>A development tenant configured with SSO, MFA, SCIM and group rules, plus a lifecycle simulator that walks a synthetic identity through joiner, mover and leaver events to prove the provisioning and deprovisioning paths actually fire.</p>
+    <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM</span><span class="tag">SAML</span><span class="tag">Lifecycle</span></div>
+    <div class="proj-foot">
+      <span style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="mini" type="button" data-cmd="open okta-lifecycle-lab">inspect ⌁</button>
+      </span>
+    </div>
+  </div>
+</article>
+
+<article class="proj card flat reveal" id="p-clemo">
+  <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/clemo</b><span class="sp"></span><span>public</span></div>
+  <div class="proj-body">
+    <p class="proj-cmd">$ <b>az webapp up</b></p>
+    <h3>clemo</h3>
+    <p>Node application running on Azure App Service, deployed from GitHub and served at projects.glasscliff.online with a managed certificate.</p>
+    <div class="tags"><span class="tag hi">Node.js</span><span class="tag">App Service</span><span class="tag">Azure</span></div>
+    <div class="proj-foot">
+      <span style="display:flex;gap:6px;flex-wrap:wrap">
+        <a class="mini" href="https://projects.glasscliff.online" target="_blank" rel="noopener">live ↗</a>
+        <a class="mini" href="https://github.com/Spiiike/clemo" target="_blank" rel="noopener">github ↗</a>
+      </span>
+    </div>
+  </div>
+</article>
+</div>
+  </section>
+
+  <!-- ==================== EDUCATION ==================== -->
+  <section class="section wrap" id="education" aria-labelledby="eduTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title" id="eduTitle" data-type="EDUCATION.LOG">EDUCATION.LOG</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>tail -f education.log</b></span>
+    </div>
+
+    <div class="edu-grid">
+      <div class="card reveal"><div class="dim" style="margin-bottom:12px">// professional development</div><div class="edu-item">
+  <h3>Professional certifications</h3>
+  <p class="meta">Azure · security · endpoint management · Linux</p>
+  <p style="font-size:13px;margin-top:6px">Certifications complement hands-on administration across identity, endpoint management and hybrid infrastructure.</p>
+</div>
+<div class="edu-item">
+  <h3>Hands-on labs</h3>
+  <p class="meta"><b>Personal Azure and Okta tenants</b> · ongoing</p>
+  <p style="font-size:13px;margin-top:6px">Terraform landing zone, Okta lifecycle simulator, and this site. Built to break things somewhere that is not production.</p>
+</div>
+<div class="edu-item">
+  <h3>Continuous learning</h3>
+  <p class="meta"><b>Currently</b></p>
+  <p style="font-size:13px;margin-top:6px">Infrastructure as code at scale, Azure identity governance, and automating the parts of endpoint management that still involve a human clicking.</p>
+</div>
+</div>
+
+      <div style="display:grid;gap:18px">
+        <div class="card org-sh reveal"><div class="dim" style="margin-bottom:10px">// certifications</div><div class="cert"><span class="yr">2026</span><span>Microsoft Certified: <b>Azure Administrator Associate</b> (AZ-104)</span></div>
+<div class="cert"><span class="yr">2025</span><span>CompTIA <b>Security+</b> (SY0-701)</span></div>
+<div class="cert"><span class="yr">2025</span><span>Microsoft 365 Certified: <b>Endpoint Administrator Associate</b> (MD-102)</span></div>
+<div class="cert"><span class="yr">2025</span><span>Red Hat Certified <b>System Administrator</b> (RHCSA, EX200)</span></div>
+<div class="cert"><span class="yr">2025</span><span><b>ITIL Foundation</b></span></div>
+<div class="cert"><span class="yr">2026</span><span>AWS Certified <b>AI Practitioner</b> (AIF-C01)</span></div></div>
+
+        </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section wrap" id="contact" aria-labelledby="contactTitle">
+    <div class="sec-head reveal">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title" id="contactTitle" data-type="CONTACT/">CONTACT/</h2>
+      <span class="sec-rule" aria-hidden="true"></span>
+      <span class="sec-cmd">~/resume $ <b>mail --to antalonj@gmail.com</b></span>
+    </div>
+
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="bigmail">
+  <span class="m">antalonj@gmail.com</span>
+  <button class="b" type="button" id="copyBtn" data-mail="antalonj@gmail.com">copy</button>
+</div>
+<div class="card"><p>For systems, identity, endpoint or cloud opportunities, get in touch by email.</p><a class="btn" style="margin-top:18px" href="mailto:antalonj@gmail.com">Email Antalon ↗</a><button class="btn ghost" style="margin-top:18px" type="button" data-cmd="print resume.pdf">Print / save resume</button></div></div>
+
+      <div style="display:grid;gap:18px">
+        <div class="card reveal">
+          <div class="win-bar" style="margin:-18px -18px 12px;padding:8px 12px"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>git remote -v</b></div>
+          <div class="remote" style="padding:0"><div class="r"><span class="n">email</span><a class="u" href="mailto:antalonj@gmail.com">antalonj@gmail.com</a><span class="m">push/fetch</span></div>
+<div class="r"><span class="n">github</span><a class="u" href="https://github.com/Spiiike" target="_blank" rel="noopener">github.com/Spiiike</a><span class="m">origin</span></div>
+<div class="r"><span class="n">site</span><a class="u" href="https://glasscliff.online">glasscliff.online</a><span class="m">www</span></div>
+<div class="r"><span class="n">projects</span><a class="u" href="https://projects.glasscliff.online" target="_blank" rel="noopener">projects.glasscliff.online</a><span class="m">archive</span></div>
+<div class="r"><span class="n">phone</span><a class="u" href="tel:+17165983637">(716) 598-3637</a><span class="m">direct</span></div>
+</div>
+        </div>
+
+        <div class="card org-sh reveal">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px">// availability matrix</div>
+          <div class="facts" style="border:0;margin:0;padding:0"><div class="fact"><span>status</span><span class="acc"><span class="pulse" aria-hidden="true"></span>open to systems / identity / cloud roles</span></div>
+<div class="fact"><span>start date</span><span>By agreement</span></div>
+<div class="fact"><span>models</span><span>Remote preferred · Austin hybrid / on-site</span></div>
+<div class="fact"><span>timezone</span><span>US Central · America/Chicago</span></div>
+</div>
+          <div class="chips" style="margin-top:14px">
+            <button class="chip o" type="button" data-cmd="sudo hire-me"><span class="d">#</span> sudo hire-me</button>
+            <button class="chip" type="button" data-cmd="whoami"><span class="d">$</span> whoami</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="foot">
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>● open to systems administration · identity · cloud roles <i>//</i> austin, tx — on-site, hybrid or remote <i>//</i> az-104 · security+ · md-102 · rhcsa <i>//</i> entra id · intune · terraform · powershell <i>//</i> </span>
+<span>● open to systems administration · identity · cloud roles <i>//</i> austin, tx — on-site, hybrid or remote <i>//</i> az-104 · security+ · md-102 · rhcsa <i>//</i> entra id · intune · terraform · powershell <i>//</i> </span>
+</div>
+  </div>
+  <div class="wrap foot-in">
+    <div>
+      <div><b>guest@terminal</b>:~/resume$ exit</div>
+      <div>© <span id="yr">2026</span> Antalon Jackson Jr · hand-written HTML/CSS/JS · deployed with Terraform</div>
+</div>
+    <div class="foot-acts">
+      <button class="chip" type="button" data-cmd="theme"><span class="d">$</span> theme</button>
+      <button class="chip" type="button" data-cmd="print resume.pdf"><span class="d">$</span> ⎙ print</button>
+      <button class="chip" type="button" data-cmd="help"><span class="d">$</span> help</button>
+      <button class="chip o" type="button" data-cmd="sudo hire-me"><span class="d">#</span> hire me</button>
+    </div>
+  </div>
+</footer>
+
+<button class="chip" id="toTop" type="button" data-cmd="cd .."><span class="d">$</span> ↑ ./top.sh</button>
+
+<script>
+(function(){
+'use strict';
+
+/* ============================================================
+   0 · helpers
+   ============================================================ */
+var doc = document, root = doc.documentElement;
+function $(s,c){ return (c||doc).querySelector(s); }
+function $$(s,c){ return Array.prototype.slice.call((c||doc).querySelectorAll(s)); }
+var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function wait(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+/* ============================================================
+   1 · pixel avatar (generated SVG — no external assets)
+   ============================================================ */
+var PX = [
+  "................",
+  ".....GGGGGG.....",
+  "....GGGGGGGG....",
+  "...GGGGGGGGGG...",
+  "...GGSSSSSSGG...",
+  "..OGGSSSSSSGGO..",
+  "..OOSSDSSDSSOO..",
+  "..OOSSSSSSSSOO..",
+  "...GGSSDDSSGG...",
+  "....GGSSSSGG....",
+  ".....GGGGGG.....",
+  "...DDDDDDDDDD...",
+  "..DDGGGGGGGGDD..",
+  ".DDGGGGGGGGGGDD.",
+  ".DGGGGGOOGGGGGD.",
+  "DGGGGGGGGGGGGGGD"
+];
+function buildAvatar(){
+  var host = $('#avatar'); if(!host) return;
+  var n = PX.length, cell = 14, pad = 1, size = n*cell + pad*2;
+  var ns = 'http://www.w3.org/2000/svg';
+  var svg = doc.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 '+size+' '+size);
+  svg.setAttribute('width', size); svg.setAttribute('height', size);
+  var colors = { G:'var(--acc)', S:'var(--px-skin)', D:'var(--px-dark)', O:'var(--orange)' };
+  for(var y=0;y<n;y++){
+    for(var x=0;x<n;x++){
+      var ch = PX[y].charAt(x);
+      if(ch === '.') continue;
+      var r = doc.createElementNS(ns,'rect');
+      r.setAttribute('x', pad + x*cell); r.setAttribute('y', pad + y*cell);
+      r.setAttribute('width', cell); r.setAttribute('height', cell);
+      r.setAttribute('fill', colors[ch] || 'var(--acc)');
+      svg.appendChild(r);
+    }
+  }
+  host.appendChild(svg);
+}
+
+/* ============================================================
+   2 · theme
+   ============================================================ */
+var THEME_KEY = 'term2-theme';
+function setTheme(t){
+  root.setAttribute('data-theme', t);
+  var b = $('#themeBtn'); if(b) b.textContent = (t === 'dark') ? '◐' : '◑';
+  try{ localStorage.setItem(THEME_KEY, t); }catch(e){}
+}
+function getTheme(){ return root.getAttribute('data-theme') || 'dark'; }
+try{
+  var saved = localStorage.getItem(THEME_KEY);
+  if(saved === 'light' || saved === 'dark') setTheme(saved);
+}catch(e){}
+
+/* ============================================================
+   3 · header metrics + scroll progress
+   ============================================================ */
+function syncCliHeight(){
+  var cli = $('.cli'); if(!cli) return;
+  root.style.setProperty('--cli-h', cli.offsetHeight + 'px');
+}
+var prog = $('#prog');
+function onScroll(){
+  var h = doc.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  var p = max > 0 ? (h.scrollTop || doc.body.scrollTop) / max : 0;
+  if(prog) prog.style.width = (p*100).toFixed(2) + '%';
+  var t = $('#toTop');
+  if(t) t.classList.toggle('show', (h.scrollTop||0) > 560);
+}
+
+/* ============================================================
+   4 · uptime clock
+   ============================================================ */
+var bootTs = Date.now();
+function tick(){
+  var s = Math.floor((Date.now()-bootTs)/1000);
+  var hh = String(Math.floor(s/3600)).padStart(2,'0');
+  var mm = String(Math.floor(s%3600/60)).padStart(2,'0');
+  var ss = String(s%60).padStart(2,'0');
+  var el = $('#uptime'); if(el) el.textContent = hh+':'+mm+':'+ss;
+}
+
+/* ============================================================
+   5 · terminal engine
+   ============================================================ */
+var termOut = $('#termOut'), logBody = $('#logBody'), cliInput = $('#cliInput');
+var hist = [], histIdx = 0, tabMatches = [], tabIdx = 0, closeTimer = null;
+var PWD = '~/resume';
+
+function scrollLog(){ if(logBody) logBody.scrollTop = logBody.scrollHeight; }
+function trimLog(){ while(logBody && logBody.childNodes.length > 320){ logBody.removeChild(logBody.firstChild); } }
+
+function openTerm(){
+  if(!termOut) return;
+  clearTimeout(closeTimer);
+  termOut.classList.add('open');
+  termOut.setAttribute('aria-hidden','false');
+  scrollLog();
+}
+function closeTerm(){
+  if(!termOut) return;
+  termOut.classList.remove('open');
+  termOut.setAttribute('aria-hidden','true');
+}
+function closeTermSoon(ms){
+  clearTimeout(closeTimer);
+  closeTimer = setTimeout(closeTerm, ms || 1300);
+}
+
+function addLine(text, cls, isHtml){
+  if(!logBody) return null;
+  var d = doc.createElement('div');
+  d.className = 'ln' + (cls ? ' ' + cls : '');
+  if(isHtml) d.innerHTML = text; else d.textContent = text;
+  logBody.appendChild(d);
+  trimLog(); scrollLog();
+  return d;
+}
+function addPrompt(cmd){
+  addLine('<span class="p1">guest@terminal</span><span class="p2">'+esc(PWD)+'$</span> <span class="p3">'+esc(cmd)+'</span>', '', true);
+}
+function typeLine(text, cls, speed){
+  return new Promise(function(res){
+    var el = addLine('', cls);
+    if(!el) return res();
+    if(REDUCE){ el.textContent = text; scrollLog(); return res(); }
+    var i = 0, chunk = Math.max(1, Math.round(text.length / 110)), sp = speed || 7;
+    (function step(){
+      i = Math.min(text.length, i + chunk);
+      el.textContent = text.slice(0, i);
+      scrollLog();
+      if(i < text.length) setTimeout(step, sp); else res();
+    })();
+  });
+}
+function typeLines(lines, cls, speed){
+  return lines.reduce(function(p, l){
+    return p.then(function(){
+      if(typeof l === 'string') return typeLine(l, cls, speed);
+      return typeLine(l.t, l.c || cls, speed);
+    });
+  }, Promise.resolve());
+}
+
+/* --- navigation helper --- */
+function flash(el){
+  if(!el || REDUCE) return;
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+  setTimeout(function(){ el.classList.remove('flash'); }, 2400);
+}
+function goto(id, opts){
+  var el = doc.getElementById(id);
+  if(!el) return;
+  closeTermSoon((opts && opts.hold) || 1400);
+  el.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block:'start' });
+  flash(el);
+}
+
+/* --- content data --- */
+var DIRS = {
+  'about':'about', 'about.txt':'about',
+  'skills':'skills', 'skills_matrix':'skills', 'skills/':'skills', 'skills_matrix/':'skills',
+  'experience':'experience', 'experience/':'experience', 'work':'experience',
+  'projects':'projects', 'projects/':'projects',
+  'education':'education', 'education.log':'education',
+  'contact':'contact', 'contact/':'contact'
+};
+var PROJECTS = ["cloud-resume", "azure-landing-zone", "okta-lifecycle-lab", "clemo"];
+
+var ABOUT_TXT = ["Antalon Jackson Jr — Systems Administrator — Austin, TX", "9+ years in enterprise IT. Identity, endpoints and hybrid infrastructure.", "Current: Electric Power Engineers · promoted from Help Desk within a month.", "~750 current endpoints · shared responsibility for 90 servers · 40+ SSO apps.", "PowerShell, Microsoft Graph, Logic Apps, Entra ID, Intune, Jamf and Azure.", "Open to systems, identity, endpoint and cloud roles."];
+var EDU_TXT = ["2026Microsoft Certified: Azure Administrator Associate (AZ-104)", "2025CompTIA Security+ (SY0-701)", "2025Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)", "2025Red Hat Certified System Administrator (RHCSA, EX200)", "2025ITIL Foundation", "2026AWS Certified AI Practitioner (AIF-C01)", "Hands-on labs: Terraform landing zone and Okta lifecycle simulator."];
+var CONTACT_TXT = ["Email: antalonj@gmail.com", "Phone: (716) 598-3637", "GitHub: github.com/Spiiike", "Portfolio: glasscliff.online", "Projects: projects.glasscliff.online", "Austin, TX · US Central · remote preferred"];
+var NEOFETCH = ["Antalon Jackson Jr", "Role: Systems Administrator", "Focus: identity · endpoint · cloud", "Platforms: Entra ID · Intune · Jamf · Azure · M365", "Automation: PowerShell · Graph · Logic Apps · Terraform", "Location: Austin, Texas · US Central"];
+var TREE = ["~/resume", "about.txt — professional summary", "skills_matrix/ — 6 groups · 32 entries", "experience/ — 5 employers · 2017 to present", "projects/ — 4 portfolio projects", "education.log — certifications and professional development", "contact/ — email, phone and portfolio", "print resume.pdf — browser print / Save as PDF"];
+var HELP = [
+  {t:'AVAILABLE COMMANDS — terminal 2.0', c:'big'},
+  {t:'  help                        this list', c:''},
+  {t:'  ls [-la] [dir]              list resume sections', c:''},
+  {t:'  cd <dir>                    jump: about | skills | experience | projects | education | contact | ..', c:''},
+  {t:'  cat <file>                  print: about.txt | education.log | contact.txt | resume.pdf', c:''},
+  {t:'  run skills.sh [--filter=x]  load skills matrix (all|iam|endpoint|cloud|auto|sec|ops)', c:''},
+  {t:'  open <project>              focus a project card', c:''},
+  {t:'  grep <keyword>              search the whole resume', c:''},
+  {t:'  whoami                      identity summary', c:''},
+  {t:'  neofetch                    professional profile', c:''},
+  {t:'  tree                        resume structure', c:''},
+  {t:'  theme [dark|light]          switch colour scheme', c:''},
+  {t:'  print resume.pdf            open the print dialog', c:''},
+  {t:'  history | date | uptime     session info', c:''},
+  {t:'  echo <text>                 print text back', c:''},
+  {t:'  sudo hire-me                show contact details', c:'ok'},
+  {t:'  clear                       wipe this output', c:''},
+  {t:'', c:''},
+  {t:'tips: ↑/↓ history · TAB completion · ESC closes panel · ctrl/⌘+K focuses', c:'mut'}
+];
+
+/* --- commands --- */
+var CMDS = {};
+
+CMDS.help = function(){
+  return HELP.reduce(function(p,l){ return p.then(function(){ return typeLine(l.t, l.c, 2); }); }, Promise.resolve());
+};
+
+CMDS.ls = function(args){
+  var target = args.filter(function(a){return a.charAt(0) !== '-';})[0] || '';
+  target = target.replace(/\/$/,'');
+  if(target === 'projects'){
+    goto('projects'); addLine('projects/ — 4 portfolio projects', 'mut');
+    PROJECTS.forEach(function(p){addLine('  '+p+'  [open '+p+']','ok');});
+  } else if(target && DIRS[target]) { goto(DIRS[target]); addLine(target+'/','ok'); }
+  else { TREE.forEach(function(r){addLine(r,'mut');}); goto('index'); }
+  return Promise.resolve();
+};
+
+CMDS.cd = function(args){
+  var t = (args[0] || '').replace(/\/$/,'').toLowerCase();
+  if(!t || t === '.' ){ addLine(PWD, 'mut'); return Promise.resolve(); }
+  if(t === '..' || t === '~' || t === 'home' || t === 'root'){
+    PWD = '~/resume'; $('#toPath').textContent = PWD;
+    goto('home'); addLine('cd: ~/resume (top of document)', 'ok'); return Promise.resolve();
+  }
+  var id = DIRS[t];
+  if(!id){ addLine('cd: no such directory: ' + args[0], 'err'); addLine('try: about · skills · experience · projects · education · contact', 'mut'); return Promise.resolve(); }
+  PWD = '~/resume/' + id;
+  var tp = $('#toPath'); if(tp) tp.textContent = PWD;
+  goto(id);
+  addLine('cd: ' + PWD, 'ok');
+  if(id === 'skills') animateSkills();
+  return Promise.resolve();
+};
+
+CMDS.cat = function(args){
+  var f = (args[0] || '').toLowerCase();
+  if(!f){ addLine('usage: cat <file>', 'mut'); addLine('files: about.txt · education.log · contact.txt · resume.pdf', 'mut'); return Promise.resolve(); }
+  if(f === 'about.txt' || f === 'about'){ goto('about'); return typeLines(ABOUT_TXT, '', 5); }
+  if(f === 'education.log' || f === 'education'){ goto('education'); return typeLines(EDU_TXT, '', 4); }
+  if(f === 'contact.txt' || f === 'contact'){ goto('contact'); return typeLines(CONTACT_TXT, '', 4); }
+  if(f === 'skills.sh'){ return CMDS.run(['skills.sh']); }
+  if(f === 'resume.pdf'){
+    addLine('No separate PDF is bundled with this page.', 'warn');
+    addLine('Run `print resume.pdf` to print or save this resume as PDF.', 'mut');
+    return Promise.resolve();
+  }
+  addLine('cat: ' + args[0] + ': No such file or directory', 'err');
+  addLine('available: about.txt, education.log, contact.txt, resume.pdf', 'mut');
+  return Promise.resolve();
+};
+
+CMDS.run = function(args){
+  var f = (args[0] || '').toLowerCase();
+  if(f.indexOf('skills') !== -1){
+    var filter = 'all';
+    args.slice(1).forEach(function(a){
+      var m = a.match(/^--filter=(.+)$/i);
+      if(m) filter = m[1].toLowerCase();
+      else if(a.charAt(0) !== '-') filter = a.toLowerCase();
+    });
+    goto('skills', {hold: 1800});
+    return applyFilter(filter).then(function(count){
+      animateSkills();
+      addLine('./skills.sh: loaded skills matrix — filter=' + filter + ' — ' + count + ' groups rendered', 'ok');
+      addLine('hint: run skills.sh --filter=identity | endpoint | cloud | automation | security | operations', 'mut');
+    });
+  }
+  addLine('run: no such script: ' + (args[0] || ''), 'err');
+  addLine('scripts: skills.sh', 'mut');
+  return Promise.resolve();
+};
+
+CMDS.open = function(args){
+  var p = (args[0] || '').toLowerCase().replace(/\/$/,'');
+  if(PROJECTS.indexOf(p) === -1){
+    addLine('open: project not found: ' + (args[0] || ''), 'err');
+    addLine('projects: ' + PROJECTS.join(', '), 'mut');
+    return Promise.resolve();
+  }
+  var el = doc.getElementById('p-' + p);
+  goto('projects', {hold: 600});
+  if(el){
+    setTimeout(function(){
+      el.scrollIntoView({ behavior: REDUCE ? 'auto':'smooth', block:'center' });
+      flash(el);
+    }, REDUCE ? 0 : 380);
+  }
+  addLine('open: ./projects/' + p + ' — focused', 'ok');
+  return Promise.resolve();
+};
+
+CMDS.grep = function(args){
+  var term = args.join(' ').toLowerCase().trim();
+  if(!term){ addLine('usage: grep <keyword>', 'mut'); return Promise.resolve(); }
+  var ids = ['about','skills','experience','projects','education','contact'];
+  var hits = [];
+  ids.forEach(function(id){
+    var el = doc.getElementById(id); if(!el) return;
+    var lines = (el.innerText || '').split('\n');
+    for(var i=0;i<lines.length;i++){
+      var ln = lines[i].trim();
+      if(!ln) continue;
+      if(ln.toLowerCase().indexOf(term) !== -1){
+        hits.push({ id:id, n:i+1, t: ln.length > 96 ? ln.slice(0,96) + '…' : ln });
+        if(hits.length > 200) break;
+      }
+    }
+  });
+  if(!hits.length){
+    addLine('grep: no matches for “' + term + '” in ~/resume', 'warn');
+    return Promise.resolve();
+  }
+  addLine(hits.length + ' match(es) for “' + term + '”', 'ok');
+  hits.slice(0,8).forEach(function(h){
+    addLine(h.id + '.txt:' + h.n + ': ' + h.t, 'mut');
+  });
+  if(hits.length > 8) addLine('… and ' + (hits.length-8) + ' more', 'mut');
+  goto(hits[0].id, {hold: 2200});
+  return Promise.resolve();
+};
+
+CMDS.whoami = function(){ return typeLines(ABOUT_TXT, "ok", 5); };
+
+CMDS.neofetch = function(){
+  return typeLines(NEOFETCH.map(function(l){ return {t:l, c:'box'}; }), '', 3);
+};
+
+CMDS.tree = function(){ return typeLines(TREE, '', 3); };
+
+CMDS.theme = function(args){
+  var want = (args[0] || '').toLowerCase();
+  var next = (want === 'dark' || want === 'light') ? want : (getTheme() === 'dark' ? 'light' : 'dark');
+  setTheme(next);
+  addLine('theme → ' + next + ' mode (' + (next === 'dark' ? '#0D0D0D obsidian' : '#F4F4F0 cream') + ')', 'ok');
+  return Promise.resolve();
+};
+
+CMDS.clear = function(){ if(logBody) logBody.innerHTML = ''; return Promise.resolve(); };
+
+CMDS.history = function(){
+  if(!hist.length){ addLine('history is empty — type `help`', 'mut'); return Promise.resolve(); }
+  hist.slice(-20).forEach(function(h,i){ addLine(String(i+1).padStart(4,' ') + '  ' + h, 'mut'); });
+  return Promise.resolve();
+};
+
+CMDS.echo = function(args){ addLine(args.join(' '), ''); return Promise.resolve(); };
+
+CMDS.date = function(){ addLine(new Date().toString(), ''); return Promise.resolve(); };
+CMDS.uptime = function(){
+  var s = Math.floor((Date.now()-bootTs)/1000);
+  addLine('Session: ' + Math.floor(s/60) + ' min, ' + (s%60) + 's', '');
+  return Promise.resolve();
+};
+
+CMDS.print = function(){
+  addLine('Preparing the resume for printing…', 'mut');
+  addLine('opening print dialog (use “Save as PDF” for a clean copy)', 'ok');
+  setTimeout(function(){ window.print(); }, 500);
+  return Promise.resolve();
+};
+
+CMDS.sudo = function(args){
+  if(args[0] !== 'hire-me' && args[0] !== 'hire'){addLine('usage: sudo hire-me','mut');return Promise.resolve();}
+  goto('contact'); addLine('Contact Antalon: antalonj@gmail.com · (716) 598-3637','ok');
+  return Promise.resolve();
+};
+CMDS.git = function(args){
+  if(args[0] === 'log'){
+    goto('experience');
+    return typeLines(['2025–present: Electric Power Engineers','2024: SolarWinds','2023: SpaceX','2020–2023: Tesla','2017–2020: IBM'],'ok',4);
+  }
+  addLine('usage: git log — career timeline','mut');return Promise.resolve();
+};
+CMDS.hire = function(){return CMDS.sudo(['hire-me']);};
+
+
+/* Same-origin API: POST increments once per page load; GET reads only.
+   The HTML does not provision this endpoint. */
+function fetchVisitorCount(method){
+  if(!/^https?:$/.test(location.protocol)) return Promise.reject(new Error('Hosted API required'));
+  var controller = new AbortController();
+  var timeout = setTimeout(function(){controller.abort();},5000);
+  return fetch('/api/counter',{method:method,headers:{Accept:'application/json'},signal:controller.signal})
+    .then(function(r){if(!r.ok) throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(data){
+      if(!Number.isSafeInteger(data.count) || data.count < 0) throw new Error('Invalid counter response');
+      return data.count;
+    }).finally(function(){clearTimeout(timeout);});
+}
+function loadVisitorCount(){
+  var el = $('#visitorCount'); if(!el) return;
+  fetchVisitorCount('POST').then(function(count){
+    el.setAttribute('data-count',count); delete el.dataset.counted; countUp(el);
+    el.setAttribute('aria-label',count+' site visitors');
+  }).catch(function(){el.textContent='—';el.title='Visitor counter unavailable';el.setAttribute('aria-label','Visitor counter unavailable');});
+}
+CMDS.visitors = function(){
+  return fetchVisitorCount('GET').then(function(count){addLine('visitors: '+count,'ok');})
+    .catch(function(){addLine('visitors: counter unavailable','warn');});
+};
+HELP.splice(10,0,{t:'  visitors                    read the visitor counter',c:''});
+
+var ALIASES = {
+  'about':function(){ return CMDS.cat(['about.txt']); },
+  'skills':function(a){ return CMDS.run(['skills.sh'].concat(a||[])); },
+  'experience':function(){ return CMDS.cd(['experience']); },
+  'exp':function(){ return CMDS.cd(['experience']); },
+  'work':function(){ return CMDS.cd(['experience']); },
+  'projects':function(){ return CMDS.ls(['projects/']); },
+  'education':function(){ return CMDS.cat(['education.log']); },
+  'contact':function(){ return CMDS.cat(['contact.txt']); },
+  'mail':function(){ return CMDS.cd(['contact']); },
+  'home':function(){ return CMDS.cd(['..']); },
+  'index':function(){ return CMDS.cd(['..']); },
+  'resume':function(){ return CMDS.cat(['about.txt']); },
+  'man':function(){ return CMDS.help(); },
+  'dir':function(a){ return CMDS.ls(a); },
+  'll':function(a){ return CMDS.ls(['-la'].concat(a||[])); },
+  '?':function(){ return CMDS.help(); },
+  'dark':function(){ return CMDS.theme(['dark']); },
+  'light':function(){ return CMDS.theme(['light']); },
+  'clear-screen':function(){ return CMDS.clear(); },
+  'cls':function(){ return CMDS.clear(); }
+};
+
+var busy = false, pending = [];
+function runCommand(raw){
+  var cmd = String(raw || '').replace(/\s+/g,' ').trim();
+  if(!cmd) return Promise.resolve();
+  if(busy){ pending.push(cmd); return Promise.resolve(); }
+  busy = true;
+  clearTimeout(closeTimer);
+  hist.push(cmd); if(hist.length > 80) hist.shift();
+  histIdx = hist.length; tabMatches = []; tabIdx = 0;
+  addPrompt(cmd);
+  openTerm();
+  var parts = cmd.split(' ');
+  var name = parts[0].toLowerCase();
+  var args = parts.slice(1);
+  var fn = CMDS[name] || ALIASES[name];
+  var p;
+  if(!fn){
+    addLine('terminal: command not found: ' + parts[0], 'err');
+    addLine("type 'help' — or click a chip below the header", 'mut');
+    p = Promise.resolve();
+  } else {
+    try{ p = fn(args, cmd) || Promise.resolve(); }
+    catch(e){ addLine('error: ' + (e && e.message ? e.message : e), 'err'); p = Promise.resolve(); }
+  }
+  return Promise.resolve(p).then(function(){
+    scrollLog(); busy = false;
+    if(pending.length) runCommand(pending.shift());
+  });
+}
+
+/* ============================================================
+   6 · skills: filter + animate
+   ============================================================ */
+var CATS = {all:'all', iam:'iam', identity:'iam', endpoint:'endpoint', cloud:'cloud', auto:'auto', automation:'auto', sec:'sec', security:'sec', ops:'ops', operations:'ops'};
+function applyFilter(key){
+  var cat = CATS[(key||'all').toLowerCase()] || 'all';
+  var shown = 0;
+  $$('.sk-group').forEach(function(g){
+    var match = (cat === 'all' || g.getAttribute('data-cat') === cat);
+    g.classList.toggle('hide', !match);
+    if(match) shown++;
+  });
+  $$('.sk-filters .chip').forEach(function(b){
+    var f = b.getAttribute('data-filter');
+    b.classList.toggle('on', f === cat || (f === 'all' && cat === 'all'));
+  });
+  return Promise.resolve(shown);
+}
+var skillsDone = false;
+function animateSkills(){ skillsDone = true; }
+
+/* ============================================================
+   7 · reveals, title typewriters, counters
+   ============================================================ */
+function typeTitle(el){
+  if(!el || el.dataset.typed === '1') return;
+  var text = el.getAttribute('data-type') || el.textContent;
+  el.dataset.typed = '1';
+  if(REDUCE){ el.textContent = text; return; }
+  el.textContent = '';
+  var i = 0;
+  (function step(){
+    i++;
+    el.textContent = text.slice(0, i);
+    if(i < text.length) setTimeout(step, 34);
+  })();
+}
+function countUp(el){
+  if(el.dataset.counted === '1') return;
+  el.dataset.counted = '1';
+  var target = parseFloat(el.getAttribute('data-count')) || 0;
+  var suffix = el.getAttribute('data-suffix') || '';
+  var dec = (String(el.getAttribute('data-count')).indexOf('.') !== -1) ? 2 : 0;
+  if(REDUCE){ el.textContent = target.toFixed(dec) + suffix; return; }
+  var start = null, dur = 900;
+  function frame(ts){
+    if(start === null) start = ts;
+    var p = Math.min(1, (ts - start) / dur);
+    var e = 1 - Math.pow(1 - p, 3);
+    el.textContent = (target * e).toFixed(dec) + suffix;
+    if(p < 1) requestAnimationFrame(frame); else el.textContent = target.toFixed(dec) + suffix;
+  }
+  requestAnimationFrame(frame);
+}
+
+var io = null;
+function initObservers(){
+  if(!('IntersectionObserver' in window)){
+    $$('.reveal').forEach(function(el){ el.classList.add('in'); });
+    $$('[data-type]').forEach(typeTitle);
+    $$('[data-count]').forEach(countUp);
+    animateSkills(true);
+    return;
+  }
+  io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var el = en.target;
+      el.classList.add('in');
+      if(el.hasAttribute('data-type')) typeTitle(el);
+      if(el.hasAttribute('data-count')) countUp(el);
+      if(el.id === 'skills') animateSkills();
+      io.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  $$('.reveal').forEach(function(el){ io.observe(el); });
+  $$('[data-type]').forEach(function(el){ io.observe(el); });
+  $$('[data-count]').forEach(function(el){ io.observe(el); });
+  var sk = doc.getElementById('skills'); if(sk) io.observe(sk);
+}
+
+/* ============================================================
+   8 · hero typewriters
+   ============================================================ */
+function typer(el, words, opts){
+  if(!el) return;
+  var o = opts || {};
+  var wi = 0, ci = 0, deleting = false;
+  if(REDUCE){ el.textContent = words[0]; return; }
+  (function step(){
+    var w = words[wi];
+    ci += deleting ? -1 : 1;
+    el.textContent = w.slice(0, ci);
+    var delay = deleting ? (o.delSpeed || 32) : (o.typeSpeed || 62);
+    if(!deleting && ci === w.length){ deleting = true; delay = o.hold || 1900; }
+    else if(deleting && ci === 0){ deleting = false; wi = (wi + 1) % words.length; delay = 260; }
+    setTimeout(step, delay);
+  })();
+}
+
+/* ============================================================
+   9 · contact form + copy
+   ============================================================ */
+function initMail(){
+  var cb = $('#copyBtn');
+  if(cb){
+    cb.addEventListener('click', function(){
+      var mail = cb.getAttribute('data-mail') || 'antalonj@gmail.com';
+      var done = function(){
+        var old = cb.textContent; cb.textContent = 'copied!';
+        addLine('clipboard ← ' + mail, 'ok');
+        openTerm(); closeTermSoon(1800);
+        setTimeout(function(){ cb.textContent = old; }, 1700);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(mail).then(done).catch(fallback);
+      } else fallback();
+      function fallback(){
+        var ta = doc.createElement('textarea');
+        ta.value = mail; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+        doc.body.appendChild(ta); ta.select();
+        try{ doc.execCommand('copy'); done(); }catch(e){ addLine('clipboard blocked by browser — mail is ' + mail, 'warn'); }
+        doc.body.removeChild(ta);
+      }
+    });
+  }
+}
+
+/* ============================================================
+   10 · tab completion + history
+   ============================================================ */
+function completions(){
+  var base = Object.keys(CMDS).concat(Object.keys(ALIASES));
+  PROJECTS.forEach(function(p){ base.push('open ' + p); });
+  ['cat about.txt','cat education.log','cat contact.txt','cd experience','cd skills','cd projects','cd contact','cd ..',
+   'run skills.sh','sudo hire-me','ls -la','ls projects/','theme dark','theme light','print resume.pdf',
+   'neofetch','whoami','tree','help','history','grep entra','git log']
+   .forEach(function(s){ base.push(s); });
+  return base;
+}
+function doTab(){
+  var val = cliInput.value;
+  var pool = completions();
+  var matches = pool.filter(function(c){ return c.toLowerCase().indexOf(val.toLowerCase()) === 0; });
+  if(!matches.length){
+    var last = val.split(' ').pop().toLowerCase();
+    matches = pool.filter(function(c){ return c.toLowerCase().indexOf(last) !== -1; });
+  }
+  if(!matches.length) return;
+  if(tabMatches.join('|') !== matches.join('|')){ tabMatches = matches; tabIdx = 0; }
+  else { tabIdx = (tabIdx + 1) % tabMatches.length; }
+  cliInput.value = tabMatches[tabIdx];
+  if(tabMatches.length > 1 && tabMatches.length < 14){
+    addLine(tabMatches.join('   '), 'mut');
+    openTerm();
+  }
+}
+
+/* ============================================================
+   11 · boot
+   ============================================================ */
+function boot(){
+  buildAvatar();
+  syncCliHeight();
+  onScroll();
+  tick();
+  initObservers();
+  initMail();
+  $('#yr').textContent = new Date().getFullYear();
+
+  /* pre-seed the log so it is never empty */
+  addLine('terminal 2.0 — Antalon Jackson Jr · resume shell', 'mut');
+  addLine('type `help` for commands · press ctrl/⌘+K anywhere to focus this bar', 'mut');
+  addLine('last login: ' + new Date().toUTCString().replace('GMT','UTC'), 'mut');
+  addLine('', '');
+
+  typer($('#heroCmd'), ['whoami','cat about.txt','run skills.sh','cd experience','ls projects/','sudo hire-me'], {hold:1500});
+var ROLES = [
+  'systems administrator // identity · endpoint · cloud',
+  'entra id · intune · jamf · workspace one',
+  'powershell · microsoft graph · logic apps · terraform',
+  'az-104 · security+ · md-102 · rhcsa'
+];
+
+  typer($('#roleType'), ROLES, {hold:2100, typeSpeed:52, delSpeed:26});
+  loadVisitorCount();
+
+  /* events ------------------------------------------------ */
+  var form = $('#cliForm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var v = cliInput.value;
+      cliInput.value = '';
+      runCommand(v);
+    });
+  }
+  cliInput.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      if(!hist.length) return;
+      histIdx = Math.max(0, histIdx - 1);
+      cliInput.value = hist[histIdx] || '';
+    } else if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      histIdx = Math.min(hist.length, histIdx + 1);
+      cliInput.value = hist[histIdx] || '';
+    } else if(e.key === 'Tab'){
+      e.preventDefault(); doTab();
+    } else if(e.key === 'Escape'){
+      closeTerm(); cliInput.blur();
+    } else if(e.key === 'l' && e.ctrlKey){
+      e.preventDefault(); CMDS.clear();
+    }
+  });
+
+  /* global click delegation for data-cmd */
+  doc.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target.closest('[data-cmd]') : null;
+    if(!t) return;
+    e.preventDefault();
+    runCommand(t.getAttribute('data-cmd'));
+  });
+
+  /* filter chips */
+  $$('.sk-filters .chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter') || 'all';
+      applyFilter(f).then(function(n){
+        skillsDone = false;
+        animateSkills(true);
+        addLine('skills.sh --filter=' + f + ' → ' + n + ' group(s) visible', 'ok');
+        openTerm(); closeTermSoon(1600);
       });
-  </script>
+    });
+  });
+
+  /* header buttons */
+  $('#themeBtn').addEventListener('click', function(){ CMDS.theme([]).then(function(){ openTerm(); closeTermSoon(1600); }); });
+  $('#helpBtn').addEventListener('click', function(){ runCommand('help'); });
+  $('#clearBtn').addEventListener('click', function(){ CMDS.clear(); cliInput.focus({preventScroll:true}); });
+  $('#closeBtn').addEventListener('click', function(){ closeTerm(); });
+
+  /* keyboard shortcuts */
+  doc.addEventListener('keydown', function(e){
+    var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+    var typing = (tag === 'input' || tag === 'textarea');
+    if((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)){
+      e.preventDefault();
+      cliInput.focus(); cliInput.select();
+      openTerm();
+    }
+    if(e.key === 'Escape' && !typing) closeTerm();
+  });
+
+  /* click the prompt area to focus */
+  $('.cli').addEventListener('click', function(e){
+    if(e.target.closest('button') || e.target.closest('input')) return;
+    cliInput.focus();
+  });
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){ syncCliHeight(); });
+  setInterval(tick, 1000);
+  syncCliHeight();
+  setTimeout(syncCliHeight, 400);
+
+  /* ensure above-the-fold reveals fire */
+  $$('.hero .reveal, #index .reveal').forEach(function(el){ el.classList.add('in'); });
+}
+
+if(doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot);
+else boot();
+})();
+</script>
 </body>
 </html>
