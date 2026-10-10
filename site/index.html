@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>glasscliff.online</title>
+</head>
+<body>
+  <h1>Antalon Jackson Jr</h1>
+  <p>Visitors: <span id="count">…</span></p>
+
+  <script>
+    fetch('/api/counter', { method: 'POST' })
+      .then(function (r) {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        return r.json();
+      })
+      .then(function (d) {
+        document.getElementById('count').textContent = d.count;
+      })
+      .catch(function (e) {
+        document.getElementById('count').textContent = '—';
+        console.error('counter failed', e);
+      });
+  </script>
+</body>
+</html>
