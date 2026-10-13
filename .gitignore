@@ -7,3 +7,4 @@ crash.log
 local.settings.json
 __pycache__/
 .venv/
+*.local.tfvars

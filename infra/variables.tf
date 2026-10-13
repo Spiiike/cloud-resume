@@ -11,7 +11,7 @@ variable "location" {
 }
 
 variable "domain_name" {
-  description = "Mock domain served by Front Door"
+  description = "Custom domain served by the Static Web App"
   type        = string
   default     = "glasscliff.online"
 }

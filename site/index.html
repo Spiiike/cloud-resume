@@ -572,9 +572,9 @@ html{scroll-behavior:auto}
   <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/azure-landing-zone</b><span class="sp"></span><span>public</span></div>
   <div class="proj-body">
     <h3>azure-landing-zone</h3>
-    <p>Landing zone architecture built in Terraform: virtual machines, Entra ID groups and Azure Policy assignments, structured to demonstrate subscription governance and policy inheritance rather than one-off resource creation.</p>
-    <div class="tags"><span class="tag hi">Terraform</span><span class="tag">Azure Policy</span><span class="tag">Entra ID</span><span class="tag">Governance</span></div>
-    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/" target="_blank" rel="noopener">Open landing zone lab ↗</a></div>
+    <p>A small landing zone in Bicep: a management-group hierarchy, guardrail policies assigned at the top and moved from Audit to Deny once existing resources were compliant, central Log Analytics for activity logs, and a monthly budget with alerts. The live page reads spend and tag coverage, and lets you test a proposed deployment against the policies.</p>
+    <div class="tags"><span class="tag hi">Bicep</span><span class="tag">Azure Policy</span><span class="tag">Management groups</span><span class="tag">Governance</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/" target="_blank" rel="noopener">Open landing zone lab ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/about" target="_blank" rel="noopener">Design notes ↗</a><a class="mini" href="https://github.com/Spiiike/iamdash/tree/main/glasscliff-landing-zone" target="_blank" rel="noopener">Bicep source ↗</a></div>
   </div>
 </article>
 
@@ -582,9 +582,9 @@ html{scroll-behavior:auto}
   <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/okta-lifecycle-lab</b><span class="sp"></span><span>public</span></div>
   <div class="proj-body">
     <h3>okta-lifecycle-lab</h3>
-    <p>Live Okta integration with a custom SCIM 2.0 endpoint, an OIDC/PKCE application, and session revocation on offboarding. The development tenant uses SSO, MFA and group-based provisioning to demonstrate the joiner, mover and leaver lifecycle.</p>
-    <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM 2.0</span><span class="tag">OIDC / PKCE</span><span class="tag">Session revocation</span></div>
-    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/identity" target="_blank" rel="noopener">Open identity lab ↗</a></div>
+    <p>Okta as the source of truth, in three parts. <b>Lifecycle:</b> a custom SCIM 2.0 endpoint and an OIDC/PKCE app, driven through joiner, mover and leaver runs with session revocation on offboarding. <b>Federation:</b> the same identities provisioned and federated into Entra ID and Google Cloud Identity. <b>Reconciliation:</b> a twice-daily, read-only check that all three directories still agree.</p>
+    <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM 2.0</span><span class="tag">OIDC / PKCE</span><span class="tag">Entra ID</span><span class="tag">Google Cloud Identity</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/identity/dashboard/" target="_blank" rel="noopener">1 · Lifecycle ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/federation" target="_blank" rel="noopener">2 · Federation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/recon" target="_blank" rel="noopener">3 · Reconciliation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/about" target="_blank" rel="noopener">Design notes ↗</a></div>
   </div>
 </article>
 
@@ -592,9 +592,9 @@ html{scroll-behavior:auto}
   <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/cloud-resume</b><span class="sp"></span><span>public</span></div>
   <div class="proj-body">
     <h3>cloud-resume <span class="ver">this site</span></h3>
-    <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, every resource declared in Terraform, and GitHub Actions deploying on green tests with OIDC federation — no stored cloud credentials.</p>
+    <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, and the infrastructure in Terraform. GitHub Actions applies the Terraform over OIDC federation, so no Azure credentials are stored for it; the site and API upload uses the Static Web Apps deployment token. Failing tests block the deploy.</p>
     <div class="tags"><span class="tag hi">Terraform</span><span class="tag hi">Azure</span><span class="tag">Python</span><span class="tag">Cosmos DB</span><span class="tag">GitHub Actions</span></div>
-    <div class="proj-foot"><a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">View source on GitHub ↗</a></div>
+    <div class="proj-foot"><a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">View source on GitHub ↗</a><a class="mini" href="https://github.com/Spiiike/cloud-resume#architecture" target="_blank" rel="noopener">Architecture ↗</a><a class="mini" href="https://glasscliff.online/blog.html" target="_blank" rel="noopener">Write-up ↗</a></div>
   </div>
 </article>
 
@@ -602,9 +602,9 @@ html{scroll-behavior:auto}
   <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/glasscliff</b><span class="sp"></span><span>public</span></div>
   <div class="proj-body">
     <h3>Glasscliff project hub</h3>
-    <p>The shared home for my working infrastructure and identity labs. Open the hub to explore the Azure landing zone and Okta lifecycle builds in one place.</p>
-    <div class="tags"><span class="tag hi">Node.js</span><span class="tag">App Service</span><span class="tag">Azure</span></div>
-    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online" target="_blank" rel="noopener">Open project hub ↗</a></div>
+    <p>The shared home for my working labs: the Azure landing zone, plus the identity lab's lifecycle, federation and reconciliation pages. A Node.js app on App Service with an Azure Functions back end.</p>
+    <div class="tags"><span class="tag hi">Node.js</span><span class="tag">App Service</span><span class="tag">Azure Functions</span></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online" target="_blank" rel="noopener">Open project hub ↗</a><a class="mini" href="https://github.com/Spiiike/iamdash" target="_blank" rel="noopener">Source ↗</a></div>
   </div>
 </article>
 </div>
@@ -859,7 +859,7 @@ html{scroll-behavior:auto}
 <div class="edu-item">
   <h3>Hands-on labs</h3>
   <p class="meta"><b>Personal Azure and Okta tenants</b> · ongoing</p>
-  <p style="font-size:13px;margin-top:6px">Terraform landing zone, Okta lifecycle simulator, and this site. Built to break things somewhere that is not production and learn a bit more.</p>
+  <p style="font-size:13px;margin-top:6px">Bicep landing zone, an Okta identity lab (lifecycle, federation into Entra ID and Google, reconciliation), and this site. Built to break things somewhere that is not production and learn a bit more.</p>
 </div>
 <div class="edu-item">
   <h3>Continuous learning</h3>
@@ -1095,7 +1095,7 @@ var DIRS = {
 var PROJECTS = ["azure-landing-zone", "okta-lifecycle-lab", "cloud-resume", "project-hub"];
 
 var ABOUT_TXT = ["Antalon Jackson Jr — Systems Administrator — Austin, TX", "9+ years in enterprise IT. Identity, endpoints and hybrid infrastructure.", "Current: Electric Power Engineers · promoted from Help Desk within a month.", "~750 current endpoints · shared responsibility for 90 servers · 40+ SSO apps.", "PowerShell, Microsoft Graph, Logic Apps, Entra ID, Intune, Jamf and Azure.", "Open to systems, identity, endpoint and cloud roles."];
-var EDU_TXT = ["2026Microsoft Certified: Azure Administrator Associate (AZ-104)", "2025CompTIA Security+ (SY0-701)", "2025Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)", "2025Red Hat Certified System Administrator (RHCSA, EX200)", "2025ITIL Foundation", "2026AWS Certified AI Practitioner (AIF-C01)", "Hands-on labs: Terraform landing zone and Okta lifecycle simulator."];
+var EDU_TXT = ["2026Microsoft Certified: Azure Administrator Associate (AZ-104)", "2025CompTIA Security+ (SY0-701)", "2025Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)", "2025Red Hat Certified System Administrator (RHCSA, EX200)", "2025ITIL Foundation", "2026AWS Certified AI Practitioner (AIF-C01)", "Hands-on labs: Bicep landing zone, Okta identity lab (lifecycle, federation, reconciliation), and this site."];
 var CONTACT_TXT = ["Email: antalonj@gmail.com", "GitHub: github.com/Spiiike", "Portfolio: glasscliff.online", "Projects: projects.glasscliff.online", "Austin, TX · US Central · remote preferred"];
 var NEOFETCH = ["Antalon Jackson Jr", "Role: Systems Administrator", "Focus: identity · endpoint · cloud", "Platforms: Entra ID · Intune · Jamf · Azure · M365", "Automation: PowerShell · Graph · Logic Apps · Terraform", "Location: Austin, Texas · US Central"];
 var TREE = ["~/resume", "about.txt — professional summary", "skills_matrix/ — 6 groups · 32 entries", "experience/ — 5 employers · 2017 to present", "projects/ — 4 portfolio projects", "education.log — certifications and professional development", "contact/ — email, phone and portfolio", "print resume.pdf — browser print / Save as PDF"];
