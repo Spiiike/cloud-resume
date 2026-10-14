@@ -18,13 +18,12 @@
    tokens · base · layout · components · sections · responsive
    ============================================================ */
 
-/* ---------- 1. TOKENS ---------- */
 :root{
   --mono:'JetBrains Mono Variable','JetBrains Mono','Fira Code',ui-monospace,SFMono-Regular,Menlo,Consolas,'Courier New',monospace;
   --maxw:1220px;
   --cli-h:64px;
-  --bw:2px;            /* border width */
-  --sh:6px;            /* hard offset shadow */
+  --bw:2px;
+  --sh:6px;
   --sp:clamp(16px,4vw,28px);
 }
 html[data-theme="dark"]{
@@ -572,7 +571,7 @@ html{scroll-behavior:auto}
   <div class="win-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><b>~/projects/azure-landing-zone</b><span class="sp"></span><span>public</span></div>
   <div class="proj-body">
     <h3>azure-landing-zone</h3>
-    <p>A small landing zone in Bicep: a management-group hierarchy, guardrail policies assigned at the top and moved from Audit to Deny once existing resources were compliant, central Log Analytics for activity logs, and a monthly budget with alerts. The live page reads spend and tag coverage, and lets you test a proposed deployment against the policies.</p>
+    <p>A small landing zone in Bicep: a management-group hierarchy, guardrail policies defined at the top, run in Audit until existing resources were compliant, then enforced with Deny on a dedicated resource group, central Log Analytics for activity logs, and a monthly budget with alerts. The live page reads spend and tag coverage, and lets you test a proposed deployment against the policies.</p>
     <div class="tags"><span class="tag hi">Bicep</span><span class="tag">Azure Policy</span><span class="tag">Management groups</span><span class="tag">Governance</span></div>
     <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/" target="_blank" rel="noopener">Open landing zone lab ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/landing-zone/about" target="_blank" rel="noopener">Design notes ↗</a><a class="mini" href="https://github.com/Spiiike/iamdash/tree/main/glasscliff-landing-zone" target="_blank" rel="noopener">Bicep source ↗</a></div>
   </div>
@@ -584,7 +583,7 @@ html{scroll-behavior:auto}
     <h3>okta-lifecycle-lab</h3>
     <p>Okta as the source of truth, in three parts. <b>Lifecycle:</b> a custom SCIM 2.0 endpoint and an OIDC/PKCE app, driven through joiner, mover and leaver runs with session revocation on offboarding. <b>Federation:</b> the same identities provisioned and federated into Entra ID and Google Cloud Identity. <b>Reconciliation:</b> a twice-daily, read-only check that all three directories still agree.</p>
     <div class="tags"><span class="tag hi">Okta</span><span class="tag">SCIM 2.0</span><span class="tag">OIDC / PKCE</span><span class="tag">Entra ID</span><span class="tag">Google Cloud Identity</span></div>
-    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/identity/dashboard/" target="_blank" rel="noopener">1 · Lifecycle ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/federation" target="_blank" rel="noopener">2 · Federation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/recon" target="_blank" rel="noopener">3 · Reconciliation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/about" target="_blank" rel="noopener">Design notes ↗</a></div>
+    <div class="proj-foot"><a class="mini" href="https://projects.glasscliff.online/labs/identity/dashboard/" target="_blank" rel="noopener">1 · Lifecycle ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/federation" target="_blank" rel="noopener">2 · Federation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/recon" target="_blank" rel="noopener">3 · Reconciliation ↗</a><a class="mini" href="https://projects.glasscliff.online/labs/identity/about" target="_blank" rel="noopener">Design notes ↗</a><a class="mini" href="https://github.com/Spiiike/iamdash" target="_blank" rel="noopener">Source ↗</a><a class="mini" href="https://github.com/Spiiike/okta-as-code" target="_blank" rel="noopener">Okta in Terraform ↗</a></div>
   </div>
 </article>
 
@@ -594,7 +593,7 @@ html{scroll-behavior:auto}
     <h3>cloud-resume <span class="ver">this site</span></h3>
     <p>The page you are reading. Azure Static Web Apps serving the front end and a Python API on the same origin, a Cosmos DB Table API visitor counter, and the infrastructure in Terraform. GitHub Actions applies the Terraform over OIDC federation, so no Azure credentials are stored for it; the site and API upload uses the Static Web Apps deployment token. Failing tests block the deploy.</p>
     <div class="tags"><span class="tag hi">Terraform</span><span class="tag hi">Azure</span><span class="tag">Python</span><span class="tag">Cosmos DB</span><span class="tag">GitHub Actions</span></div>
-    <div class="proj-foot"><a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">View source on GitHub ↗</a><a class="mini" href="https://github.com/Spiiike/cloud-resume#architecture" target="_blank" rel="noopener">Architecture ↗</a><a class="mini" href="https://glasscliff.online/blog.html" target="_blank" rel="noopener">Write-up ↗</a></div>
+    <div class="proj-foot"><a class="mini" href="https://github.com/Spiiike/cloud-resume" target="_blank" rel="noopener">View source on GitHub ↗</a><a class="mini" href="https://github.com/Spiiike/cloud-resume#architecture" target="_blank" rel="noopener">Architecture ↗</a><a class="mini" href="https://glasscliff.online/blog.html" target="_blank" rel="noopener">Write-up ↗</a><a class="mini" href="https://github.com/Spiiike/cloud-resume/tree/main/tests" target="_blank" rel="noopener">Tests ↗</a></div>
   </div>
 </article>
 
@@ -755,7 +754,7 @@ html{scroll-behavior:auto}
     <ol class="timeline"><li class="job card reveal">
   <div class="job-top">
     <div>
-      <h3>System Administrator I</h3>
+      <h3>System Administrator</h3>
       <p class="co">@ Electric Power Engineers <span class="loc">· Austin, TX · identity, endpoint &amp; cloud infrastructure</span></p>
     </div>
     <span class="badge now">FEB 2025 — PRESENT</span>

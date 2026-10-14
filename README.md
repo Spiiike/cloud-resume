@@ -23,7 +23,7 @@ flowchart TD
 ```
 
 - **Frontend:** One HTML page in `site/`, with its CSS and JavaScript. No framework or build step.
-- **API:** A Python Azure Function using the v2 programming model at `/api/counter`. It reads or increments the visitor count and returns `{"count": n}`. Static Web Apps serves it from the same origin as the page, so there's no separate CORS setup.
+- **API:** A Python Azure Function using the v2 programming model at `/api/counter`. Both GET and POST increment the visitor count and return `{"count": n}`; there's no read-only method. Static Web Apps serves it from the same origin as the page, so there's no separate CORS setup.
 - **Database:** Cosmos DB using the Table API in serverless mode. It stores a single counter record, keeping the workload small and the cost low at this traffic level.
 - **DNS and TLS:** Azure DNS hosts the zone, with an alias A record for the apex domain and a CNAME for `www`. Static Web Apps handles certificate issuance and renewal for both.
 - **Infrastructure:** Terraform with `azurerm` 4.x. State lives in Azure Storage, with Entra ID authentication instead of storage account keys.

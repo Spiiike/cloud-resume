@@ -44,9 +44,9 @@
 <div class="ticker">· IAM &amp; CLOUD PROJECTS · BUILT, BROKEN, TESTED ·</div>
 <div class="layout">
 <aside aria-label="Site directory and article navigation" class="sidebar">
-<div><h2>[ site directory ]</h2><p><a href="https://glasscliff.online/">Resume / home</a><br/><a href="https://projects.glasscliff.online/">Previous portfolio</a></p><!-- Replace these spans with links once the real URLs are available. Do not publish guessed URLs. --><p class="placeholder"><a href="https://github.com/Spiiike/">GitHub</a><br/><a href="https://www.linkedin.com/in/antalon-jackson-jr-71a23bbb/">LinkedIn</a></p></div>
+<div><h2>[ site directory ]</h2><p><a href="https://glasscliff.online/">Resume / home</a><br/><a href="https://projects.glasscliff.online/">Project hub</a></p><p><a href="https://github.com/Spiiike/">GitHub</a><br/><a href="https://www.linkedin.com/in/antalon-jackson-jr-71a23bbb/">LinkedIn</a></p></div>
 <nav aria-label="Web log archive" class="directory"><h3>[ recent entries ]</h3><ol><li><a href="#okta-entra-google">Oct 12 — Three directories, one source of truth</a></li><li><a href="#azure-resume">Oct 10 — The Azure resume build</a></li></ol></nav>
-<div><h2>[ project status ]</h2><div class="status"><span aria-hidden="true" class="lamp"></span> Identity lab: VERIFIED<br/>Okta → Entra + Google<br/>Policies: Terraform<br/>Azure resume: LIVE</div><div class="badge">BUILT ON AZURE</div><div class="badge alt">TESTS BEFORE DEPLOYS</div><div class="badge">BEST VIEWED WITH CURIOSITY</div><p>No fake visitor count here.<br/>The real counter is on the resume.</p></div>
+<div><h2>[ project status ]</h2><div class="status"><span aria-hidden="true" class="lamp"></span> Identity lab: VERIFIED<br/>Okta → Entra + Google<br/>Okta policies: Terraform<br/>Azure resume: LIVE</div><div class="badge">BUILT ON AZURE</div><div class="badge alt">TESTS BEFORE DEPLOYS</div><div class="badge">BEST VIEWED WITH CURIOSITY</div><p>No fake visitor count here.<br/>The real counter is on the resume.</p></div>
 </aside>
 <main class="article" id="entry"><article class="post" id="okta-entra-google">
 <div class="meta"><time datetime="2026-10-12">October 12, 2026</time> · @Antalon · IAM / Okta / Entra ID / Google Cloud Identity</div>
@@ -72,7 +72,7 @@
 
 Terraform → Okta groups and authentication policies</div>
 <p>The distinction I had to keep in mind was that <i>provisioning and authentication are separate operations</i>. Provisioning decides whether an account exists, what attributes it has, and whether it's enabled. Federation decides how that account signs in. One can work while the other is completely broken.</p>
-<p>I also manage the Okta groups and authentication policies with Terraform, including plan-on-PR, apply-on-merge, and a daily drift check. I left the Microsoft and Google connectors out of this part. They carry authenticated tokens, consent grants, and provisioning state that I don't want an incomplete provider changing or replacing.</p>
+<p>I also manage the Okta groups and authentication policies with Terraform, in <a href="https://github.com/Spiiike/okta-as-code">okta-as-code</a>, including plan-on-PR, apply-on-merge, and a daily drift check. I left the Microsoft and Google connectors out of this part. They carry authenticated tokens, consent grants, and provisioning state that I don't want an incomplete provider changing or replacing.</p>
 <h2>Getting identities to match</h2>
 <p>I went with a simple identity model: one person, one lowercase username, and the same address in all three directories. But, just for fun, some of them use random, capitalized letters. Mostly so I can try applying the transformation <code>String.toLowerCase(user.login)</code> to the integrations.</p>
 <p>Entra uses <code>userPrincipalName</code> to match an existing account. Google uses <code>primaryEmail</code>. I also learned that I could verify <code>glasscliff.online</code> in Entra and add it to Google as a secondary domain. I assumed I would and bought a second domain ahead of time. It's in my back pocket for now, though.</p>
@@ -160,7 +160,7 @@ Application.Read.All</code></pre>
 <h2>What I'm still working on</h2>
 <p>The main flows are working, but this isn't a claim that every edge case or security control has been completed. The most important remaining task is reducing the standing privileges on both provisioning connectors and verifying that the integrations continue to work.</p>
 <ul>
-<li>Build reconciliation across Okta, Entra, and Google.</li>
+<li><s>Build reconciliation across Okta, Entra, and Google.</s> Done since this was written: <a href="https://projects.glasscliff.online/labs/identity/recon">a twice-daily, read-only reconciliation</a>.</li>
 <li>Test whether an Okta <em>Suspend</em> event propagates the same way as <em>Deactivate</em>.</li>
 <li>Determine whether Google's downstream password is regenerated on every profile push or just at creation.</li>
 <li>Import the groups, authentication policies, and management into Terraform. As it stands, I currently have Terraform managing <i>another</i> policy. I plan to implement this for these as well as a .5 addition to this project by the end of the week.</li>
